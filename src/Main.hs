@@ -139,7 +139,7 @@ main = do
         else if s == ":h" then do
             clear        
             setCursorPos 20  4 
-            mapM_ putStrLn mycmd
+            printBox 2 mycmd
             loop 0 []
         else do  
             -- pre $ show s 

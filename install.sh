@@ -77,6 +77,8 @@ if [[ "$#" -eq 2 ]]; then
         rm $sym/$fname
 
         ln -s $bindir/$fname $2
+        cp ./cpp.cpp $bindir
+
         ls -lah $mybin
         ls -lah $sym | grep $fname
 
