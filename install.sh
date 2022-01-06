@@ -66,6 +66,8 @@ echo "install.sh in          => install"
 echo "install.sh in  newname => $sym/newname -> binaryfile"
 echo "install.sh un          => uninstall"
 
+curr=$PWD
+
 if [[ "$#" -eq 2 ]]; then
     if [[ "$1" == "in" ]]; then
         mkdir $bindir 
@@ -77,7 +79,9 @@ if [[ "$#" -eq 2 ]]; then
         rm $sym/$fname
 
         ln -s $bindir/$fname $2
-        cp ./cpp.cpp $bindir
+
+        cd $curr
+        cp cpp.cpp "$bindir"
 
         ls -lah $mybin
         ls -lah $sym | grep $fname
