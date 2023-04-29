@@ -1,0 +1,3 @@
+/Users/aaa/myfile/github/haskell-cpp-repel/src/code/CMakeFiles/cpp.dir
+/Users/aaa/myfile/github/haskell-cpp-repel/src/code/CMakeFiles/edit_cache.dir
+/Users/aaa/myfile/github/haskell-cpp-repel/src/code/CMakeFiles/rebuild_cache.dir

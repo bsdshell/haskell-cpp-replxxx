@@ -21,7 +21,7 @@
 # resolver: lts-13.28
 
 # ghc-8.10.3
-resolver: lts-17.3
+resolver: lts-17.2
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -74,19 +74,46 @@ extra-deps:
 - tcp-streams-1.0.1.1
 # - th-abstraction-0.3.2.0
 - wire-streams-0.1.1.0
-
 - th-abstraction-0.4.3.0
-
 - prettyprinter-1.7.1
-
 - newtype-generics-0.6
 - force-layout-0.4.0.6
-- process-streaming-0.9.3.0
+- bytestring-trie-0.2.5.2
 
-- conceit-0.5.0.0
-- pipes-text-1.0.0
-- pipes-transduce-0.4.4.0
+- juicy-draw-0.2.0.0
 
+- diagrams-1.4.0.1
+- diagrams-lib-1.4.4
+- diagrams-svg-1.4.3
+
+- diagrams-contrib-1.4.4
+- diagrams-core-1.5.0
+- orthotope-0.1.0.0
+- text-format-simple-1.1.0
+
+# - text-icu-0.7.1.0
+# Download the tar file: https://hackage.haskell.org/package/text-icu-0.7.1.0
+- archive: /Users/aaa/myfile/bitbucket/publicfile/haskell_package/text-icu-0.7.1.0.tar
+
+# KEY: haskell package
+# stack sdist
+
+# Fri 10 Mar 12:48:32 2023 
+# Fixed: Missing icu4, text-icu-0.7.1.0 when ghci is loading
+extra-include-dirs:
+- /usr/local/opt/icu4c/include
+
+extra-lib-dirs:
+- /usr/local/opt/icu4c/lib
+
+
+# - git: git@github.com:haskell/text-icu.git
+#  commit: 5451d335a6fd27ab3be99b1d2328bd89a8ce4a20 
+
+# Sun 26 Feb 13:50:19 2023 
+# Old vector-0.12.1.2 DOES NOT have generate function
+# v <- generate 4 (\x -> x * x) => ERROR
+# SEE: https://hackage.haskell.org/package/vector-0.12.1.2/docs/Data-Vector-Mutable.html 
 
 # flags: {}
 
@@ -106,7 +133,10 @@ extra-deps:
 #
 # Extra directories used by stack for building
 # extra-include-dirs: [/path/to/dir]
+# extra-include-dirs: [/usr/local/Cellar/icu4c/71.1/include]
+
 # extra-lib-dirs: [/path/to/dir]
+# extra-lib-dirs: [/usr/local/Cellar/icu4c/71.1/lib]
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor

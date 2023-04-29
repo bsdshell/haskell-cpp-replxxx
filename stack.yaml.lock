@@ -152,36 +152,82 @@ packages:
   original:
     hackage: force-layout-0.4.0.6
 - completed:
-    hackage: process-streaming-0.9.3.0@sha256:5db7965bc2f6fe5b58598141411bc6c1787907b883bfae9d22027e9f4040a460,3356
+    hackage: bytestring-trie-0.2.5.2@sha256:40bc3acb213fd832e71c0b0f14cc975c3eb72ca9bb72b25a134794088ef47e29,3086
     pantry-tree:
-      size: 648
-      sha256: 4d9d6cfb372de82b89ae52201077bd768686319ed2350380d00a2357c8427af3
+      size: 705
+      sha256: 8b49983a9bea53c1e41829bafa09eae82ff79756e111ef78254f79ee1f94aea0
   original:
-    hackage: process-streaming-0.9.3.0
+    hackage: bytestring-trie-0.2.5.2
 - completed:
-    hackage: conceit-0.5.0.0@sha256:c443cc867af659a754ce40fe2d37421af323e0b8b22fdb11b4dda591ad2f408d,840
+    hackage: juicy-draw-0.2.0.0@sha256:436a9b67e8c1d976a08bd5932c00a7204848589df6c18df0dcec00aea584614a,1253
     pantry-tree:
-      size: 321
-      sha256: bf4f84e4bf7b3f48e03dd21785d56c292cb2d9ad871dee3b2500c46715c713b4
+      size: 395
+      sha256: 67f1e16fe07671969621bf2e79848472bae9e949a28f75fca7867fe0af951c28
   original:
-    hackage: conceit-0.5.0.0
+    hackage: juicy-draw-0.2.0.0
 - completed:
-    hackage: pipes-text-1.0.0@sha256:0e5201cd499edbcbfb32bec59279938039a094b246c41d2c49c27288509a3e28,3146
+    hackage: diagrams-1.4.0.1@sha256:5d003c391fff00c945f8014c24bac0ea7b8daa9500349bef4646fa620a0c5327,5480
     pantry-tree:
-      size: 555
-      sha256: 2e1f4cd9d6ba296a09b31111a122f1d57392ad8b79251243dbe1915096a63a4b
+      size: 208
+      sha256: a28c20bbb11eddd3546fa98f2599507046fc490a4df71da6e928ad3653f2ed50
   original:
-    hackage: pipes-text-1.0.0
+    hackage: diagrams-1.4.0.1
 - completed:
-    hackage: pipes-transduce-0.4.4.0@sha256:30b7ee1324ff504d1f357ad8818923b854ee70270b91aedd90d88e3f5f37b073,2189
+    hackage: diagrams-lib-1.4.4@sha256:1129be254377b926ce2e932113e4bd06256de878d163fbcbacacf1be97bdf3b0,8220
     pantry-tree:
-      size: 647
-      sha256: c90a7d0c8244bbf5a58ed4bd449b5b3c0cfdc5cb8824c9caf1c8cca4658fcb63
+      size: 11604
+      sha256: a96099f5e6e4c3236dd2c2dd301e5498a1dd4b968a05dcec144c46eb53e6d912
   original:
-    hackage: pipes-transduce-0.4.4.0
+    hackage: diagrams-lib-1.4.4
+- completed:
+    hackage: diagrams-svg-1.4.3@sha256:407ff78cb7bd1f44c68b0059036186f17a281a053901e29d0139ab151e703247,3159
+    pantry-tree:
+      size: 475
+      sha256: 53c2221ee415d9bfc2f0dd886b67b1edbfdb91f68e809b43cf0bb830fc870ad7
+  original:
+    hackage: diagrams-svg-1.4.3
+- completed:
+    hackage: diagrams-contrib-1.4.4@sha256:77c87ab5c780086eca845df233d3b6816a2aed82a80b7f4abe5ce1259801924b,4753
+    pantry-tree:
+      size: 11387
+      sha256: 6f1a006bf528662f4f34e02207571669af6dab6966c64c0558559dfc16c43bf8
+  original:
+    hackage: diagrams-contrib-1.4.4
+- completed:
+    hackage: diagrams-core-1.5.0@sha256:8ffd24eb97ce309b41c52e5fa3a8acee5e4063565919eb4d41abb5c219b3d49b,2971
+    pantry-tree:
+      size: 2018
+      sha256: 670806e0af1e31792557a3bc2c4ffe4c39929fea718c3071eb4702c4512c9795
+  original:
+    hackage: diagrams-core-1.5.0
+- completed:
+    hackage: orthotope-0.1.0.0@sha256:5b7eb013c198924c9315bfc78c771c72ca22cb01cd4289bd49b157e33231dec4,2865
+    pantry-tree:
+      size: 2529
+      sha256: ec39fe8ca8b46cc9ae66e6e0dd85de0856aa75abbac963f2b10a1e1c65016af8
+  original:
+    hackage: orthotope-0.1.0.0
+- completed:
+    hackage: text-format-simple-1.1.0@sha256:5815236396328f556b9896fdcb949d15b485ef05394c9dc846e94b0306cb4036,735
+    pantry-tree:
+      size: 215
+      sha256: 026136165778e83cb04c587b3609d95731ccf35da07249c9eb0f29ceb6946cbb
+  original:
+    hackage: text-format-simple-1.1.0
+- completed:
+    size: 246784
+    filepath: /Users/aaa/myfile/bitbucket/publicfile/haskell_package/text-icu-0.7.1.0.tar
+    name: text-icu
+    version: 0.7.1.0
+    sha256: 77a59bb5291419b5f33e6f7aa99f7ace1f320b278d1dc001085880c8abe2451b
+    pantry-tree:
+      size: 2307
+      sha256: 334a1d7fa81b10fc8bb66abd47b07b50830328c5dc09737294133e63a2efcbed
+  original:
+    filepath: /Users/aaa/myfile/bitbucket/publicfile/haskell_package/text-icu-0.7.1.0.tar
 snapshots:
 - completed:
     size: 563099
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/3.yaml
-    sha256: 1e9f31ec160a144f796bc49b91dfc2bab5eca88b1dcc93da569108febaf5b382
-  original: lts-17.3
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/2.yaml
+    sha256: 92b1a17e31d0a978fca4bf270305d4d1dd8092271bf60eafbc9349c890854026
+  original: lts-17.2
