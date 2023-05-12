@@ -68,16 +68,23 @@ main = runInputT defaultSettings loop
 -}
 
 mycmd = [
-      ":h      => help",
-      ":del    => delete code and create new source file",
-      ":dr n   => delete nth line and replace with current code",
-      ":ls     => list source file",
-      ":run    => run source file",
-      ":rep    => insert snippet to source file",
-      ":sw 2 3 => swap line 2 and 3",
+      ":h      => Help",
+      ":lib s  => Simple library",
+      ":lib x  => All libraries",
+      ":del    => Delete code and create new source file",
+      ":dl n   => Delete nth line",
+      ":dr n   => Delete nth line and Replace with current code",
+      ":ls     => List source file",
+      ":run    => Run source file",
+      ":rep    => Insert snippet to cpp.cpp",
+      ":app    => Append to the end of cpp.cpp",
+      ":pre    => Prepend to the begin of cpp.cpp",
+      ":sw 2 3 => Swap line 2 and 3",
+      ":heada  => Show libAronLib",
+      ":heads  => Show libSimple",
       ":hsc    =>",
       ":cmd    =>",
-      ":cr     => clear screen"
+      ":cr     => Clear screen"
     ]
 
 
@@ -118,11 +125,18 @@ libAronLib = [r|
 #include <iostream>
 #include <vector>
 #include "AronLib.h"
+
+// KEY: cpp array language, cpp apl
+#include <blitz/array.h>  
+
+using namespace blitz;
+
 using namespace std;
 using namespace AronPrint;  // pp()
 using namespace Algorithm;
 using namespace Utility;
 using namespace MatrixVector;
+using namespace AronLambda; // take(2, v)
 
               |]
 
@@ -143,10 +157,21 @@ getTemplate cx cy = do
                     return (ls, lt)
   
 -- cppFile = "./cpp.cpp"
--- cppEditedFile = "./cpp.code"
+-- cppEditedFile = "./block.cpp"
 
 repelPath :: IO String
-repelPath = getCurrentDirectory >>= \x -> return $ x </> "src" </> "code"
+repelPath = do
+            s <- readFileList "./config.txt" >>= \x -> return $ trimList x
+            let path = splitStr "=" $ head s
+            -- pre path
+            if head path == "rootpath" then do
+              -- putStrLn $ last path
+              return $ last path </> "src" </> "code"
+            else do
+              putStrLn "ERROR: Can not find rootpath"
+              return ""
+            
+            -- getCurrentDirectory >>= \x -> return $ x </> "src" </> "code"
   
 getCppFile :: IO String
 getCppFile = do
@@ -159,40 +184,60 @@ getCppFile = do
   
 getEditedFile :: IO String
 getEditedFile = do
-                fn <- (</> "cpp.code") <$> repelPath
+                fn <- (</> "block.cpp") <$> repelPath
                 b <- fileExistA fn
                 when (not b) $ do
                  createFile fn
                 return fn
   
+lsHeadAll :: String
+lsHeadAll = libAronLib
+  
+lsHeadSimple :: String
+lsHeadSimple = libSimple
+  
 conStr = containStr
-
-runCode:: [String ] -> [String]-> IO()
+  
+execCode :: IO()
+execCode = do
+      clear
+      (cmdExit, cmdOut, cmdErr) <- runSh $ toSText "./src/code/bin/cpp"
+      if cmdExit == ExitSuccess then do
+        putStrLn $ toStr cmdOut
+      else do
+        pp "ERROR: Run ./src/code/bin/cpp"
+        putStrLn $ toStr cmdErr
+  
+  
+      
+runCode :: [String ] -> [String]-> IO()
 runCode cx cy = do
       clear
       -- out <- run "cat /tmp/x4.x"
       rootDir <- getpwd
       old <- timeNowSecond
-      fw "repelPath"
       repelPath >>= putStrLn
       cppEditedFile <- getEditedFile
-      putStrLn $ "cppEditedFile=" ++ cppEditedFile
   
       cppFile <- getCppFile
       ls <- readFileStrict cppEditedFile >>= return . lines
          
       writeFileList cppFile $ cx ++ ls ++ cy
-      getpwd >>= putStrLn
       -- (ext, stout, sterr) <- runSh $ toSText $ "haskell-cpp-compile " ++ cppFile
       cd "src/code"
       (ext, stout, sterr) <- runSh $ toSText $ "cmake --build build -- -j3"
       cd rootDir
       if ext == ExitSuccess then do 
-        pp "ExitSuccess" 
+        pp "cmake --build build -- -j3 => ExitSuccess" 
         -- putStrLn $ toStr stout
         clear
-        out <- runCmd "./src/code/bin/cpp"
-        mapM_ putStrLn out
+        (cmdExit, cmdOut, cmdErr) <- runSh $ toSText "./src/code/bin/cpp"
+        if cmdExit == ExitSuccess then do
+          putStrLn $ toStr cmdOut
+        else do
+          pp "ERROR: Run ./src/code/bin/cpp"
+          putStrLn $ toStr cmdErr
+  
         -- clear
       else do
         pp "ERROR:"
@@ -201,12 +246,6 @@ runCode cx cy = do
       putStrLn ""
       let diff = new - old
       putStrLn $ "Run seconds =" ++ show diff
-
-{--
-repFile::[String] -> IO()
-repFile cx = do
-      replaceFileWithStr "// replaceStr00" ((unlines . reverse) cx) cppFile
---}
 
 repFile::[String] -> [String] -> [String] -> IO()
 repFile left cx right = do
@@ -247,28 +286,41 @@ cppSnippet s = do
        clear
        let cmd = trim $ drop 4 s
        stdout <- run $ "hsc " ++ cmd
-       setCursorPos 20  4 
-       mapM_ putStrLn stdout 
+       mapM_ (\x -> putStrLn $ "\t" ++ x) stdout 
 
+{-|
+   === KEY: Use astyle to format it.
+-}
 showCode :: FilePath -> IO()
 showCode fn = do
+              _ <- runCmd $ "astyle " ++ fn
               str <- readFileStrict fn
-              let ls = map (concat . colorToken) $ map (tokenize) $ lines str
+              let lt = lines str
+              let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] (map (concat . colorToken) $ map (tokenize) lt)
               let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
               clear
               mapM_ (\x -> putStrLn $ "\t" ++ x) zls
+  
+showHead :: String -> IO()
+showHead s = do
+             let fn = "/tmp/abc123.cpp"
+             writeFileStr "/tmp/abc123.cpp" s
+             _ <- runCmd $ "astyle " ++ fn
+             let lt = lines s
+             let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] (map (concat . colorToken) $ map (tokenize) lt)
+             let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
+             clear
+             mapM_ (\x -> putStrLn $ "\t" ++ x) zls
   
 lsCode:: IO ()
 lsCode = do
        cppEditedFile <- getEditedFile
        showCode cppEditedFile
-       {--
-       str <- readFileStrict cppEditedFile 
-       let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ lines str
-       clear
-       mapM_ (\x -> putStrLn $ "\t" ++ x) zls
-       --}
 
+lsAllCode:: IO ()
+lsAllCode = do
+       cppFile <- getCppFile
+       showCode cppFile
 
 helpMe::IO ()
 helpMe = do
@@ -281,15 +333,16 @@ main = do
   let x = 3
 
   let upLine = 20
-  ioRef <- newIORef $ lines libSimple
+  ioRef <- newIORef $ lines libAronLib
   clear
   curr <- getCurrentDirectory
   putStrLn $ "curr=" ++ curr
   (leftL, rightL) <- getTemplate headStr tailStr
   
   let loop ioRef rightL n cx = do
+        cppEditedFile <- getEditedFile
         leftL <- readIORef ioRef >>= \x -> return $ x ++ (lines mainStr)
-        setCursorPos (20 + n)  4 
+        setCursorPos (10 + n)  4 
         AN.clearFromCursorToLineEnd
         -- AN.cursorForward 4
         -- s <- getLineFlush >>= return . trim
@@ -299,12 +352,19 @@ main = do
         if | hasPrefix ":run" s -> do
              runCode leftL rightL
              loop ioRef rightL 0 []
+  
+           | hasPrefix ":exe" s -> do
+             execCode
+             loop ioRef rightL 0 []
+  
            | hasPrefix ":rep" s -> do
              repFile leftL cx rightL
+             lsCode
              loop ioRef rightL 0 []
   
            | hasPrefix ":del" s -> do
-             delCode             
+             delCode
+             lsCode
              loop ioRef rightL 0 []
            | hasPrefix ":cr" s -> do
              clearCode             
@@ -315,30 +375,48 @@ main = do
            | hasPrefix ":hsc" s -> do
              cppSnippet s 
              loop ioRef rightL 0 []
+  
            | hasPrefix ":ls" s -> do
-             lsCode 
+             lsCode
+             loop ioRef rightL 0 []
+  
+           | hasPrefix ":all" s -> do
+             lsAllCode
+             loop ioRef rightL 0 []
+  
+           | hasPrefix ":heada" s -> do
+             showHead libAronLib
+             loop ioRef rightL 0 []
+  
+           | hasPrefix ":heads" s -> do
+             showHead libSimple
              loop ioRef rightL 0 []
   
            | hasPrefix ":lib" s -> do
              let ss = trim $ drop (len ":lib") s
              if ss == "s" then do
                  putStrLn ss
-                 pp "simple"
+                 setCursorPos 40  4 
+                 pp "No AronLib"
                else do
                  writeIORef ioRef (lines libAronLib)
+                 setCursorPos 40  4 
+                 pp "AronLib"
   
              loop ioRef rightL 0 []
 
            | hasPrefix ":dr" s -> do
              let ns = drop 3 s
              let n = read (trim ns) :: Int
-             cppEditedFile <- getEditedFile
+
              str <- readFileStrict cppEditedFile
              let ls = lines str
              let left = take n ls
              let right = drop (n+1) ls
              let lt = left ++ cx ++ right
              writeFileList cppEditedFile lt
+             lsCode
+
              loop ioRef rightL 0 []
   
            | hasPrefix ":empty" s -> do
@@ -356,7 +434,8 @@ main = do
              let right = drop (n+1) ls
              let lt = left ++ cx ++ right
              writeFileList cppEditedFile lt
-
+             lsCode
+             
              loop ioRef rightL 0 []
 
            | hasPrefix ":dl" s -> do
@@ -370,7 +449,22 @@ main = do
              writeFileList cppEditedFile lt
              lsCode
 
+           | hasPrefix ":df" s -> do
+             cppEditedFile <- getEditedFile
+             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
+             let ns = trim $ drop (len ":df") s
+             let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+             
+             let n1 = head lr
+             let n2 = last lr
+             
+             let left = take n1 ls 
+             let right = drop (n2 + 1) ls
+             let lt = left ++ right
+             writeFileList cppEditedFile lt
+             lsCode
              loop ioRef rightL 0 []
+  
            | hasPrefix ":sw" s -> do
              cppEditedFile <- getEditedFile
              ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
@@ -402,8 +496,8 @@ main = do
              ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
              let lt = ls ++ (reverse cx)
              writeFileList cppEditedFile lt
-             showCode cppEditedFile
-
+             lsCode
+             
              loop ioRef rightL 0 []
 
            | hasPrefix ":pre" s -> do
@@ -412,7 +506,7 @@ main = do
              ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
              let lt = (reverse cx) ++ ls
              writeFileList cppEditedFile lt
-             showCode cppEditedFile
+             lsCode
 
              loop ioRef rightL 0 []
 

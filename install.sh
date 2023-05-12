@@ -108,12 +108,27 @@ elif [[ "$#" -eq 1 ]]; then
         cp ./config.txt $bindir 
         ls -lah $bindir
 
+		curr="$PWD"
         cd $sym
         rm $sym/$fname
 
         ln -s $bindir/$fname $fname 
         ls -lah $mybin
         ls -lah $sym | grep $fname
+
+        cd "$curr"
+		cp -rf src  $bindir
+        echo "rootpath=$bindir" > $bindir/config.txt
+        rm $bindir/src/code/MakeCache.txt
+        rm $bindir/src/code/MakeFiles
+        rm -rf $bindir/src/code/build
+
+        cd $bindir/src/code
+
+        # KEY: cmake build
+        cmake .
+        cmake -H. -Bbuild
+        cmake --build build -- -j3
 
         exit_success
     elif [[ "$1" == "un" ]]; then
