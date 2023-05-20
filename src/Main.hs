@@ -1,11 +1,3 @@
--- {{{ begin_fold
--- script
--- #!/usr/bin/env runhaskell -i/Users/cat/myfile/bitbucket/haskelllib
--- {-# LANGUAGE OverloadedStrings #-}
--- {-# LANGUAGE DuplicateRecordFields #-} 
--- import Turtle
--- echo "turtle"
-
 {-# LANGUAGE MultiWayIf        #-}
 {-# LANGUAGE QuasiQuotes       #-} -- support raw string [r|<p>dog</p> |]
 import Text.RawString.QQ       -- Need QuasiQuotes too 
@@ -39,11 +31,14 @@ import qualified Data.Text                 as TS  -- Strict Text
 import qualified System.Console.Pretty as SCP
 
 import qualified Text.Regex.TDFA as TD
+import Control.Monad.Trans
+import System.Console.Haskeline
 
 import System.Console.Haskeline
 import qualified System.Console.ANSI as AN
 import AronModule
 import AronToken
+  
 
 p1 = "/Users/cat/myfile/bitbucket/testfile/test.tex"
 
@@ -73,11 +68,13 @@ mycmd = [
       ":lib x  => All libraries",
       ":del    => Delete code and create new source file",
       ":dl n   => Delete nth line",
+      ":df 2 4 => Delete from 2nd to 4th lines",
       ":dr n   => Delete nth line and Replace with current code",
       ":ls     => List source file",
       ":run    => Run source file",
       ":rep    => Insert snippet to cpp.cpp",
       ":app    => Append to the end of cpp.cpp",
+      ":bapp   => Append to the end of cpp.cpp with { }",
       ":pre    => Prepend to the begin of cpp.cpp",
       ":sw 2 3 => Swap line 2 and 3",
       ":heada  => Show libAronLib",
@@ -117,6 +114,7 @@ libSimple = [r|
 #include <vector>
 
               |]
+  
 libAronLib = [r|
 #include<iostream>
 #include <string>
@@ -200,48 +198,48 @@ conStr = containStr
   
 execCode :: IO()
 execCode = do
-      clear
+      -- clear
       (cmdExit, cmdOut, cmdErr) <- runSh $ toSText "./src/code/bin/cpp"
       if cmdExit == ExitSuccess then do
         putStrLn $ toStr cmdOut
       else do
         pp "ERROR: Run ./src/code/bin/cpp"
         putStrLn $ toStr cmdErr
-  
-  
-      
+
 runCode :: [String ] -> [String]-> IO()
 runCode cx cy = do
-      clear
-      -- out <- run "cat /tmp/x4.x"
+      -- clear
       rootDir <- getpwd
       old <- timeNowSecond
-      repelPath >>= putStrLn
+      -- repelPath >>= putStrLn
       cppEditedFile <- getEditedFile
-  
       cppFile <- getCppFile
       ls <- readFileStrict cppEditedFile >>= return . lines
-         
       writeFileList cppFile $ cx ++ ls ++ cy
-      -- (ext, stout, sterr) <- runSh $ toSText $ "haskell-cpp-compile " ++ cppFile
       cd "src/code"
-      (ext, stout, sterr) <- runSh $ toSText $ "cmake --build build -- -j3"
+      (ext, stout, sterr) <- runShStr "cmake --build build -- -j12"
       cd rootDir
       if ext == ExitSuccess then do 
-        pp "cmake --build build -- -j3 => ExitSuccess" 
-        -- putStrLn $ toStr stout
-        clear
-        (cmdExit, cmdOut, cmdErr) <- runSh $ toSText "./src/code/bin/cpp"
+        logFileG ["cmake --build build -- -j3 => ExitSuccess"]
+        -- clear
+        (cmdExit, cmdOut, cmdErr) <- runShStr "./src/code/bin/cpp"
         if cmdExit == ExitSuccess then do
-          putStrLn $ toStr cmdOut
+          putStrLn cmdOut
         else do
-          pp "ERROR: Run ./src/code/bin/cpp"
-          putStrLn $ toStr cmdErr
+          let err = "ERROR: Run ./src/code/bin/cpp"
+          pp err
+          logFileG [err]
+          putStrLn cmdErr
   
         -- clear
       else do
         pp "ERROR:"
-        putStrLn $ toStr sterr
+        let tmpf = "/tmp/xxabc.x"
+        writeFileStr tmpf stout
+        writeFileListAppend tmpf $ lines sterr
+        ls <- run $ "grep -A 5 error " ++ tmpf
+        -- let lt = map (concat . colorToken) $ map (tokenize) ls
+        putStrLn $ unlines $ colorx ls
       new <- timeNowSecond
       putStrLn ""
       let diff = new - old
@@ -296,9 +294,9 @@ showCode fn = do
               _ <- runCmd $ "astyle " ++ fn
               str <- readFileStrict fn
               let lt = lines str
-              let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] (map (concat . colorToken) $ map (tokenize) lt)
+              let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] $ colorx lt
               let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
-              clear
+              -- clear
               mapM_ (\x -> putStrLn $ "\t" ++ x) zls
   
 showHead :: String -> IO()
@@ -307,7 +305,7 @@ showHead s = do
              writeFileStr "/tmp/abc123.cpp" s
              _ <- runCmd $ "astyle " ++ fn
              let lt = lines s
-             let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] (map (concat . colorToken) $ map (tokenize) lt)
+             let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] $ colorx lt
              let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
              clear
              mapM_ (\x -> putStrLn $ "\t" ++ x) zls
@@ -316,7 +314,13 @@ lsCode:: IO ()
 lsCode = do
        cppEditedFile <- getEditedFile
        showCode cppEditedFile
-
+  
+lsTmp:: IO ()
+lsTmp = do
+       let cppTmp = "/tmp/tmpfile.cpp"
+       _ <- runCmd $ "cp /tmp/tmpfile.txt " ++ cppTmp
+       showCode cppTmp
+  
 lsAllCode:: IO ()
 lsAllCode = do
        cppFile <- getCppFile
@@ -328,20 +332,39 @@ helpMe = do
     setCursorPos 20  4 
     printBox 2 mycmd
 
-main::IO()
-main = do
+
+data EffectIORef = EffectIORef {
+                                 lib_ :: String
+                               } deriving (Show)
+
+getLibIO :: IORef EffectIORef -> IO String
+getLibIO ioRef = do
+  s <- readIORef ioRef
+  return $ lib_ s
+  
+modifyLibIO :: IORef EffectIORef -> String -> IO()
+modifyLibIO ioRef s = do
+  eff <- readIORef ioRef
+  let r = (\x -> eff{lib_ = x}) s
+  writeIORef ioRef r
+  
+colorx ls = map (concat . colorToken) $ map (tokenize) ls
+  
+mainXX::IO()
+mainXX = do
   let x = 3
 
   let upLine = 20
   ioRef <- newIORef $ lines libAronLib
+  -- ioRef <- newIORef EffectIORef
   clear
   curr <- getCurrentDirectory
   putStrLn $ "curr=" ++ curr
-  (leftL, rightL) <- getTemplate headStr tailStr
+  (mainOpen, rightL) <- getTemplate headStr tailStr
   
   let loop ioRef rightL n cx = do
         cppEditedFile <- getEditedFile
-        leftL <- readIORef ioRef >>= \x -> return $ x ++ (lines mainStr)
+        mainHead <- readIORef ioRef >>= \x -> return $ x ++ (lines mainStr)
         setCursorPos (10 + n)  4 
         AN.clearFromCursorToLineEnd
         -- AN.cursorForward 4
@@ -350,7 +373,7 @@ main = do
         -- AN.cursorUp upLine 
         -- putStrLn $ "\t" ++ s
         if | hasPrefix ":run" s -> do
-             runCode leftL rightL
+             runCode mainHead rightL
              loop ioRef rightL 0 []
   
            | hasPrefix ":exe" s -> do
@@ -358,7 +381,7 @@ main = do
              loop ioRef rightL 0 []
   
            | hasPrefix ":rep" s -> do
-             repFile leftL cx rightL
+             repFile mainHead cx rightL
              lsCode
              loop ioRef rightL 0 []
   
@@ -380,6 +403,10 @@ main = do
              lsCode
              loop ioRef rightL 0 []
   
+           | hasPrefix ":tmp" s -> do
+             lsTmp
+             loop ioRef rightL 0 []
+  
            | hasPrefix ":all" s -> do
              lsAllCode
              loop ioRef rightL 0 []
@@ -396,12 +423,13 @@ main = do
              let ss = trim $ drop (len ":lib") s
              if ss == "s" then do
                  putStrLn ss
-                 setCursorPos 40  4 
-                 pp "No AronLib"
+                 setCursorPos 40  4
+                 writeIORef ioRef (lines libSimple)
+                 putStrLn "Set lib => libSimple"
                else do
                  writeIORef ioRef (lines libAronLib)
-                 setCursorPos 40  4 
-                 pp "AronLib"
+                 setCursorPos 40  4
+                 putStrLn "Set lib => libAronLib"
   
              loop ioRef rightL 0 []
 
@@ -435,9 +463,8 @@ main = do
              let lt = left ++ cx ++ right
              writeFileList cppEditedFile lt
              lsCode
-             
              loop ioRef rightL 0 []
-
+  
            | hasPrefix ":dl" s -> do
              cppEditedFile <- getEditedFile
              ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
@@ -448,6 +475,8 @@ main = do
              let lt = left ++ right
              writeFileList cppEditedFile lt
              lsCode
+             loop ioRef rightL 0 []
+  
 
            | hasPrefix ":df" s -> do
              cppEditedFile <- getEditedFile
@@ -464,6 +493,19 @@ main = do
              writeFileList cppEditedFile lt
              lsCode
              loop ioRef rightL 0 []
+  
+           | hasPrefix ":take" s -> do
+             cppEditedFile <- getEditedFile
+             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
+             let ns = trim $ drop (len ":take") s
+             let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+             let n1 = head lr
+             let n2 = last lr
+             let lv = take (n2 - n1 + 1) $ drop n1 ls
+             writeFileList cppEditedFile lv
+             lsCode
+             loop ioRef rightL 0 []
+  
   
            | hasPrefix ":sw" s -> do
              cppEditedFile <- getEditedFile
@@ -494,6 +536,26 @@ main = do
              cppFile <- getCppFile
              cppEditedFile <- getEditedFile
              ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
+             -- let lt = ls ++ (reverse cx)
+             let lt = ls ++ ["{"] ++ (reverse cx) ++ ["}"]
+             writeFileList cppEditedFile lt
+             lsCode
+             loop ioRef rightL 0 []
+
+           | hasPrefix ":cp" s -> do
+             cppFile <- getCppFile
+             cppEditedFile <- getEditedFile
+             ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
+             cs <- getEnv "t" >>= \x -> readFileStrict x >>= \s -> return $ lines s
+             let lt = ls ++ ["{"] ++ cs ++ ["}"]
+             writeFileList cppEditedFile lt
+             lsCode
+             loop ioRef rightL 0 []
+
+           | hasPrefix ":pad" s -> do
+             cppFile <- getCppFile
+             cppEditedFile <- getEditedFile
+             ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
              let lt = ls ++ (reverse cx)
              writeFileList cppEditedFile lt
              lsCode
@@ -521,3 +583,201 @@ main = do
 
   loop ioRef rightL 0 []
   print "done"
+
+type Repl a = InputT IO a
+
+process :: [String] -> IO ()
+process cx = mapM_ putStrLn cx
+
+repl :: [String] -> Int -> IORef EffectIORef -> Repl ()
+repl acc n ioRef = do
+  (left, right) <- liftIO $ getTemplate headStr tailStr
+  let qr = [r|fileBlock '/tmp/kk.x' '-' |]
+  minput <- getInputLine "> "
+  case minput of
+    Nothing -> outputStrLn "Goodbye."
+    Just s -> do
+                  case s of
+                       v | hasPrefix ":q" v -> outputStrLn "Quit"
+                         | hasPrefix ":test" v -> (liftIO $ process $ reverse acc) >> repl [] n ioRef
+                         | hasPrefix ":cmdls" v -> do
+                                         ls <- liftIO $ run "ls"
+                                         mapM_ put ls
+                                         repl [] n ioRef
+
+                         | hasPrefix ":cr" v -> do
+                           liftIO clearCode
+                           repl [] n ioRef
+
+                         | hasPrefix ":ls" v -> do
+                                      liftIO lsCode
+                                      repl [] n ioRef
+                         | hasPrefix ":run" v -> do
+                           liftIO $ runCode left right
+                           repl [] n ioRef
+  
+                         | hasPrefix ":exe" v -> do
+                           liftIO execCode
+                           repl [] n ioRef  
+                             
+                         | hasPrefix ":add" v -> do
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                             let ns = dropPrefix ":add" v
+                             let n = read ns :: Int
+                             let left = take (n + 1) ls 
+                             let right = drop (n + 1) ls
+                             let lt = left ++ acc ++ right
+                             liftIO $ pre lt
+                             liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+                             repl [] n ioRef
+  
+                         | hasPrefix ":df" v -> do
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                             let ns = dropPrefix ":df" v
+                             let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+                             let (n1, n2) = (head lr, last lr)
+                             let left = take n1 ls 
+                             let right = drop (n2 + 1) ls
+                             let lt = left ++ right
+                             liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+                             repl [] n ioRef
+
+                         -- keep m n => Keep m to n lines only
+                         | hasPrefix ":keep" v -> do
+                           cppEditedFile <- liftIO getEditedFile
+                           ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                           let ns = dropPrefix ":keep" v
+                           let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+                           let n1 = head lr
+                           let n2 = last lr
+                           let lv = take (n2 - n1 + 1) $ drop n1 ls
+                           liftIO $ writeFileList cppEditedFile lv
+                           liftIO lsCode
+                           repl [] n ioRef
+
+                         -- Get code from fileBlock
+                         | hasPrefix ":get" v -> do
+                             let p = qr <> [r| -printindex|]
+                             let ns = dropPrefix ":get" v
+                             cx <- liftIO $ run $ p ++ " " ++ ns
+  
+                             cppFile <- liftIO getCppFile
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
+                             let lt = ls ++ ["{"] ++ cx ++ ["}"]
+                             liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+  
+                             liftIO $ pre cx
+                             repl [] n ioRef
+
+                         -- Print fileBlock
+                         | hasPrefix ":pb" v -> do
+                             let s = qr <> [r|-size|]
+                             let p = qr <> [r|-printindex|]
+                             k <- liftIO $ run s >>= \x -> return (read $ head x :: Int)
+                             liftIO $ mapM_ (\x -> (run $ p ++ " " ++ x) >>= \s -> let n = read x :: Int in putStrLn (colorfgStr 200 $ show [n]) >> (return . colorx) s >>= (mapM_ putStrLn) >> putStrLn (replicate 10 '-')) $ map show [0..(k - 1)]
+                             liftIO $ print k
+                             repl [] n ioRef
+
+                         -- Move code to fileBlock
+                         | hasPrefix ":mv" v -> do
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                             let ns = dropPrefix ":mv" v
+                             let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+                             let (n1, n2) = (head lr, last lr)
+                             let rest = drop n1 ls 
+                             let lt = take (n2 - n1 + 1) rest
+                             let s = qr <> [r|'-appendlist' |] <> [r|'|] <> show lt <> [r|'|]
+                             liftIO $ run s
+                             -- liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+                             repl [] n ioRef
+                                   
+                         -- Delete and Replace             
+                         | hasPrefix ":dr" v -> do
+                           cppEditedFile <- liftIO getEditedFile
+                           let ns = drop 3 v
+                           let n = read (trim ns) :: Int
+                           str <- liftIO $ readFileStrict cppEditedFile
+                           let ls = lines str
+                           let left = take n ls
+                           let right = drop (n+1) ls
+                           let lt = left ++ acc ++ right
+                           liftIO $ writeFileList cppEditedFile lt
+                           liftIO lsCode
+                           repl [] n ioRef
+                                   
+                         | hasPrefix ":dl" v -> do
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                             let ns = dropPrefix ":dl" v
+                             let lv = splitSPC ns
+                             let ln = map (\x -> read x :: Int) lv
+                             liftIO $ print ln
+                             let tu = zip [0..] ls
+                             let lt = map snd $ filter (\(m, _) -> m >= 0) $ map (\(n, x) -> elem n ln ? (-1, x) $ (n, x))  tu
+                             liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+                             repl [] n ioRef
+
+                         | hasPrefix ":pre" v -> do
+                           cppFile <- liftIO getCppFile
+                           cppEditedFile <- liftIO getEditedFile
+                           ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ trimList $ lines x
+                           let lt = ["{"] ++ reverse acc ++ ["}"] ++ ls
+                           liftIO $ writeFileList cppEditedFile lt
+                           liftIO lsCode
+                           repl [] n ioRef
+  
+                         | hasPrefix ":app" s -> do
+                             cppFile <- liftIO getCppFile
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
+                             let lt = ls ++ ["{"] ++ (reverse acc) ++ ["}"]
+                             liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+                             repl [] n ioRef
+  
+                         | hasPrefix ":lib" v -> do
+                                          let ls = splitSPC v
+                                          when (len ls == 2) $ liftIO $ do
+                                            let opt = last ls
+                                            eff <- readIORef ioRef
+                                            case opt of
+                                                x | x == "a" -> do
+                                                      let eff' = (\x -> eff{lib_ = x}) libAronLib
+                                                      liftIO $ pre eff'
+                                                  | x == "s" -> do
+                                                      let eff' = (\x -> eff{lib_ = x}) libSimple
+                                                      liftIO $ pre eff'
+                                                  | otherwise -> do
+                                                      liftIO $ print $ "ERROR: Unknown Option = " ++ x
+  
+                                            liftIO $ print ":lib"
+                                          repl [] (n + 1) ioRef
+                         | hasPrefix ":fi" v -> do
+                                         ls <- liftIO $ readFileList "/tmp/a.x"
+                                         mapM_ put ls
+                                         repl [] (n + 1) ioRef
+                         | hasPrefix ":hsc" v -> do
+                                         let s = dropPrefix ":hsh" v
+                                         cx <- liftIO $ run $ "hsc " ++ s
+                                         mapM_ put cx
+                                         repl [] (n + 1) ioRef
+  
+                         | otherwise -> repl (s:acc) (n + 1) ioRef
+  where
+    put = outputStrLn
+    dropPrefix ds s = trim $ drop (len ds) s
+    -- colorx ls = map (concat . colorToken) $ map (tokenize) ls
+
+main :: IO ()
+main = do
+       ioRef <- newIORef EffectIORef { lib_ = libAronLib }
+       runInputT defaultSettings $ repl [] 0 ioRef

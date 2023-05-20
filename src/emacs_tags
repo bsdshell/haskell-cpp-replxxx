@@ -1,5 +1,5 @@
 
-/Users/aaa/myfile/github/haskell-cpp-repel/src/AronModule.hs,27492
+/Users/aaa/myfile/github/haskell-cpp-repel/src/AronModule.hs,27521
 module AronModule AronModule11,12
 print_ascii_f:print_ascii_f177,178
 instance Num Num a => Num [a]187,188
@@ -687,130 +687,131 @@ splitWhileStr:splitWhileStr7613,7614
 getLineFlush:getLineFlush7619,7620
 replaceFileLineNoRegex:replaceFileLineNoRegex7636,7637
 replaceLineNoRegexListTuple:replaceLineNoRegexListTuple7643,7644
-runSh runSh7686,7687
-clear:clear7692,7693
-pp:pp7696,7697
-runRawCmd:runRawCmd7720,7721
-ls:ls7756,7757
-getPwd:getPwd7764,7765
-getpwd:getpwd7773,7774
-lsFile:lsFile7790,7791
-lsStr:lsStr7801,7802
-drawInt:drawInt7818,7819
-lsFileFull:lsFileFull7839,7840
-type RegexStr RegexStr7846,7847
-lsRegexFull:lsRegexFull7854,7855
-lsFullRegex:lsFullRegex7867,7868
-randomInt:randomInt7876,7877
-writeFileStr:writeFileStr7887,7888
-writeFileOver writeFileOver7894,7895
-writeFileList:writeFileList7907,7908
-c2w_:c2w_7918,7919
-intToString:intToString7927,7928
-integerToString:integerToString7935,7936
-integerToInt:integerToInt7943,7944
-intToCharDigit:intToCharDigit7959,7960
-extractStr:extractStr7979,7980
-integerToBinary:integerToBinary7982,7983
-charToDecimal:charToDecimal7992,7993
-charToDecimalInteger charToDecimalInteger7995,7996
-charToInt:charToInt8002,8003
-charToInteger:charToInteger8009,8010
-integerToCharDigit:integerToCharDigit8016,8017
-stringToInteger:stringToInteger8035,8036
-strToInteger:strToInteger8043,8044
-stringToInt:stringToInt8073,8074
-strToInt:strToInt8081,8082
-pre:pre8098,8099
-prel:prel8110,8111
-readFileLatin1ToList:readFileLatin1ToList8120,8121
-readFileList:readFileList8130,8131
-readFileStr:readFileStr8133,8134
-readFileDouble:readFileDouble8150,8151
-readFileFloat:readFileFloat8172,8173
-readFileInt:readFileInt8194,8195
-timeNowPico:timeNowPico8205,8206
-timeNowNano:timeNowNano8213,8214
-timeNowMicro:timeNowMicro8219,8220
-timeNowMilli:timeNowMilli8225,8226
-timeNowSecond:timeNowSecond8231,8232
-getLocalTime:getLocalTime8247,8248
-getLocalDate:getLocalDate8259,8260
-getDate:getDate8273,8274
-dateStr:dateStr8283,8284
-date:date8293,8294
-getTime:getTime8305,8306
-showTime:showTime8314,8315
-trim:trim8324,8325
-splitStr:splitStr8348,8349
-splitStrChar:splitStrChar8366,8367
-splitStrCharTrim:splitStrCharTrim8379,8380
-matchAllBS:matchAllBS8387,8388
-len:len8397,8398
-splitStrTuple:splitStrTuple8406,8407
-logFile:logFile8410,8411
-logFile2:logFile28413,8414
-logFileTmp:logFileTmp8420,8421
-logFileNoName:logFileNoName8425,8426
-logFileG:logFileG8433,8434
-logFileSBS2:logFileSBS28444,8445
-showIntAtBaseX:showIntAtBaseX8469,8470
-integerToHex:integerToHex8486,8487
-intToHex:intToHex8502,8503
-hexToInt:hexToInt8515,8516
-unescape unescape8532,8533
-intToUnicode:intToUnicode8543,8544
-hexToUnicode:hexToUnicode8549,8550
-intToChar:intToChar8557,8558
-hexToChar:hexToChar8565,8566
-Ï:Ï8568,8569
-data FrameCount FrameCount8571,8572
-data FrameCount = FrameCount{frameTime:FrameCount{frameTime8571,8572
-data FrameCount = FrameCount{frameTime::Integer, frameCount:frameCount8571,8572
-data FrameCount = FrameCount{frameTime::Integer, frameCount::Integer, frameNewCount:frameNewCount8571,8572
-data FrameCount = FrameCount{frameTime::Integer, frameCount::Integer, frameNewCount::Integer, frameIndex:frameIndex8571,8572
-resetRefFrame:resetRefFrame8574,8575
-readRefFrame2:readRefFrame28590,8591
-readRefFrame:readRefFrame8634,8635
-fileSizeStrToNum:fileSizeStrToNum8660,8661
-whichGetPath:whichGetPath8671,8672
-openFileUtf8:openFileUtf88683,8684
-readFileUtf8:readFileUtf88695,8696
-scientificToFloat:scientificToFloat8711,8712
-sciToFloat:sciToFloat8727,8728
-colorfgStr:colorfgStr8784,8785
-colorbgStr:colorbgStr8809,8810
-createProcessPipeData:createProcessPipeData8848,8849
-writeFileSText:writeFileSText8874,8875
-writeFileLText:writeFileLText8881,8882
-(>(>>>)8888,8889
-pad:pad8901,8902
-nzero:nzero8907,8908
-shiftMatrixLeft:shiftMatrixLeft8920,8921
-shellHighlight:shellHighlight8936,8937
-blockBegEnd:blockBegEnd8991,8992
-pick:pick9020,9021
-containAll:containAll9035,9036
-combin:combin9066,9067
-drawRectBar:drawRectBar9072,9073
-histogram:histogram9090,9091
-insertIndexAt:insertIndexAt9109,9110
-isInList isInList9119,9120
-removeFirstList:removeFirstList9131,9132
-removeFromList:removeFromList9142,9143
-readFileInteger2d:readFileInteger2d9183,9184
-readFileFloat2d:readFileFloat2d9224,9225
-readTable:readTable9235,9236
-alignTable:alignTable9254,9255
-trimList trimList9276,9277
-trimListST trimListST9293,9294
-stepList:stepList9331,9332
-splitWhenFirstNoRegex splitWhenFirstNoRegex9367,9368
-splitWhenLastNoRegex splitWhenLastNoRegex9385,9386
-splitStrCharNoRegex splitStrCharNoRegex9412,9413
-printFile printFile9421,9422
-frequenceCount:frequenceCount9445,9446
-fun10:fun109498,9499
+runSh runSh7688,7689
+runShStr runShStr7701,7702
+clear:clear7711,7712
+pp:pp7715,7716
+runRawCmd:runRawCmd7739,7740
+ls:ls7775,7776
+getPwd:getPwd7783,7784
+getpwd:getpwd7792,7793
+lsFile:lsFile7809,7810
+lsStr:lsStr7820,7821
+drawInt:drawInt7837,7838
+lsFileFull:lsFileFull7858,7859
+type RegexStr RegexStr7865,7866
+lsRegexFull:lsRegexFull7873,7874
+lsFullRegex:lsFullRegex7886,7887
+randomInt:randomInt7895,7896
+writeFileStr:writeFileStr7906,7907
+writeFileOver writeFileOver7913,7914
+writeFileList:writeFileList7926,7927
+c2w_:c2w_7937,7938
+intToString:intToString7946,7947
+integerToString:integerToString7954,7955
+integerToInt:integerToInt7962,7963
+intToCharDigit:intToCharDigit7978,7979
+extractStr:extractStr7998,7999
+integerToBinary:integerToBinary8001,8002
+charToDecimal:charToDecimal8011,8012
+charToDecimalInteger charToDecimalInteger8014,8015
+charToInt:charToInt8021,8022
+charToInteger:charToInteger8028,8029
+integerToCharDigit:integerToCharDigit8035,8036
+stringToInteger:stringToInteger8054,8055
+strToInteger:strToInteger8062,8063
+stringToInt:stringToInt8092,8093
+strToInt:strToInt8100,8101
+pre:pre8117,8118
+prel:prel8129,8130
+readFileLatin1ToList:readFileLatin1ToList8139,8140
+readFileList:readFileList8149,8150
+readFileStr:readFileStr8152,8153
+readFileDouble:readFileDouble8169,8170
+readFileFloat:readFileFloat8191,8192
+readFileInt:readFileInt8213,8214
+timeNowPico:timeNowPico8224,8225
+timeNowNano:timeNowNano8232,8233
+timeNowMicro:timeNowMicro8238,8239
+timeNowMilli:timeNowMilli8244,8245
+timeNowSecond:timeNowSecond8250,8251
+getLocalTime:getLocalTime8266,8267
+getLocalDate:getLocalDate8278,8279
+getDate:getDate8292,8293
+dateStr:dateStr8302,8303
+date:date8312,8313
+getTime:getTime8324,8325
+showTime:showTime8333,8334
+trim:trim8343,8344
+splitStr:splitStr8367,8368
+splitStrChar:splitStrChar8385,8386
+splitStrCharTrim:splitStrCharTrim8398,8399
+matchAllBS:matchAllBS8406,8407
+len:len8416,8417
+splitStrTuple:splitStrTuple8425,8426
+logFile:logFile8429,8430
+logFile2:logFile28432,8433
+logFileTmp:logFileTmp8439,8440
+logFileNoName:logFileNoName8444,8445
+logFileG:logFileG8452,8453
+logFileSBS2:logFileSBS28463,8464
+showIntAtBaseX:showIntAtBaseX8488,8489
+integerToHex:integerToHex8505,8506
+intToHex:intToHex8521,8522
+hexToInt:hexToInt8534,8535
+unescape unescape8551,8552
+intToUnicode:intToUnicode8562,8563
+hexToUnicode:hexToUnicode8568,8569
+intToChar:intToChar8576,8577
+hexToChar:hexToChar8584,8585
+Ï:Ï8587,8588
+data FrameCount FrameCount8590,8591
+data FrameCount = FrameCount{frameTime:FrameCount{frameTime8590,8591
+data FrameCount = FrameCount{frameTime::Integer, frameCount:frameCount8590,8591
+data FrameCount = FrameCount{frameTime::Integer, frameCount::Integer, frameNewCount:frameNewCount8590,8591
+data FrameCount = FrameCount{frameTime::Integer, frameCount::Integer, frameNewCount::Integer, frameIndex:frameIndex8590,8591
+resetRefFrame:resetRefFrame8593,8594
+readRefFrame2:readRefFrame28609,8610
+readRefFrame:readRefFrame8653,8654
+fileSizeStrToNum:fileSizeStrToNum8679,8680
+whichGetPath:whichGetPath8690,8691
+openFileUtf8:openFileUtf88702,8703
+readFileUtf8:readFileUtf88714,8715
+scientificToFloat:scientificToFloat8730,8731
+sciToFloat:sciToFloat8746,8747
+colorfgStr:colorfgStr8803,8804
+colorbgStr:colorbgStr8828,8829
+createProcessPipeData:createProcessPipeData8867,8868
+writeFileSText:writeFileSText8893,8894
+writeFileLText:writeFileLText8900,8901
+(>(>>>)8907,8908
+pad:pad8920,8921
+nzero:nzero8926,8927
+shiftMatrixLeft:shiftMatrixLeft8939,8940
+shellHighlight:shellHighlight8955,8956
+blockBegEnd:blockBegEnd9010,9011
+pick:pick9039,9040
+containAll:containAll9054,9055
+combin:combin9085,9086
+drawRectBar:drawRectBar9091,9092
+histogram:histogram9109,9110
+insertIndexAt:insertIndexAt9128,9129
+isInList isInList9138,9139
+removeFirstList:removeFirstList9150,9151
+removeFromList:removeFromList9161,9162
+readFileInteger2d:readFileInteger2d9202,9203
+readFileFloat2d:readFileFloat2d9243,9244
+readTable:readTable9254,9255
+alignTable:alignTable9273,9274
+trimList trimList9295,9296
+trimListST trimListST9312,9313
+stepList:stepList9350,9351
+splitWhenFirstNoRegex splitWhenFirstNoRegex9386,9387
+splitWhenLastNoRegex splitWhenLastNoRegex9404,9405
+splitStrCharNoRegex splitStrCharNoRegex9431,9432
+printFile printFile9440,9441
+frequenceCount:frequenceCount9464,9465
+fun10:fun109517,9518
 
 /Users/aaa/myfile/github/haskell-cpp-repel/src/AronDevLib.hs,390
 module AronDevLib AronDevLib6,7
@@ -902,10 +903,10 @@ data Token = AlphaNum AlphaNum386,387
             | Unknown Unknown412,413
             | NumberX NumberX413,414
 tokenize tokenize416,417
-colorToken colorToken491,492
-highlight highlight533,534
-highlightStr highlightStr548,549
-testAll testAll555,556
+colorToken colorToken497,498
+highlight highlight541,542
+highlightStr highlightStr556,557
+testAll testAll563,564
 
 /Users/aaa/myfile/github/haskell-cpp-repel/src/AronAlias.hs,126
 module AronAlias AronAlias0,1
@@ -916,11 +917,11 @@ rfl rfl80,81
 env env82,83
 s2Text s2Text84,85
 
-/Users/aaa/myfile/github/haskell-cpp-repel/src/Main.hs,595
-p1 p147,48
-mycmd mycmd69,70
-headStr headStr88,89
-libSimple libSimple108,109
+/Users/aaa/myfile/github/haskell-cpp-repel/src/Main.hs,1029
+p1 p142,43
+mycmd mycmd64,65
+headStr headStr87,88
+libSimple libSimple107,108
 libAronLib libAronLib117,118
 mainStr mainStr140,141
 tailStr tailStr146,147
@@ -928,18 +929,32 @@ getTemplate:getTemplate150,151
 repelPath repelPath159,160
 getCppFile getCppFile173,174
 getEditedFile getEditedFile182,183
-conStr conStr190,191
-execCode execCode192,193
-runCode runCode199,200
-repFile:repFile231,232
-delCode:delCode240,241
-clearCode:clearCode253,254
-cmdRun:cmdRun257,258
-cppSnippet:cppSnippet265,266
-showCode showCode276,277
-lsCode:lsCode286,287
-helpMe:helpMe291,292
-main:main297,298
+lsHeadAll lsHeadAll190,191
+lsHeadSimple lsHeadSimple193,194
+conStr conStr196,197
+execCode execCode198,199
+runCode runCode208,209
+repFile:repFile249,250
+delCode:delCode258,259
+clearCode:clearCode271,272
+cmdRun:cmdRun275,276
+cppSnippet:cppSnippet283,284
+showCode showCode293,294
+showHead showHead303,304
+lsCode:lsCode314,315
+lsTmp:lsTmp319,320
+lsAllCode:lsAllCode325,326
+helpMe:helpMe330,331
+data EffectIORef EffectIORef337,338
+data EffectIORef = EffectIORef EffectIORef337,338
+                                 lib_ lib_338,339
+getLibIO getLibIO341,342
+modifyLibIO modifyLibIO346,347
+mainXX:mainXX352,353
+type Repl Repl586,587
+process process588,589
+repl repl591,592
+main main692,693
 
 /Users/aaa/myfile/github/haskell-cpp-repel/src/AronHtml2.hs,697
 module AronHtml2 AronHtml22,3

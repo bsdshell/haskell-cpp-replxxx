@@ -225,15 +225,8 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/bitset \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__bit_reference \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/fstream \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/filesystem \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/stack \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/deque \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__split_buffer \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/iomanip \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/sstream \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/vector \
   /Users/aaa/myfile/bitbucket/cpplib/AronLib.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/sstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/cmath \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/math.h \
@@ -255,6 +248,8 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
   /Users/aaa/myfile/bitbucket/clib/AronCLibNew.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/stdbool.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.5/include/stdbool.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/vector \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__split_buffer \
   /Users/aaa/myfile/bitbucket/cpplib/glm/glm/glm.hpp \
   /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/_fixes.hpp \
   /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/setup.hpp \
@@ -410,6 +405,7 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_select.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/gethostuuid.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/regex \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/deque \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/array \
   /usr/local/include/boost/filesystem.hpp \
   /usr/local/include/boost/filesystem/config.hpp \
@@ -714,168 +710,13 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
   /usr/local/include/boost/filesystem/convenience.hpp \
   /usr/local/include/boost/filesystem/string_file.hpp \
   /usr/local/include/boost/filesystem/fstream.hpp \
-  /usr/local/include/blitz/array.h \
-  /usr/local/include/blitz/array-impl.h \
-  /usr/local/include/blitz/blitz.h \
-  /usr/local/include/blitz/bzconfig.h \
-  /usr/local/include/blitz/llvm/bzconfig.h \
-  /usr/local/include/blitz/compiler.h \
-  /usr/local/include/blitz/tuning.h \
-  /usr/local/include/blitz/tau.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/complex \
-  /usr/local/include/blitz/bzdebug.h \
-  /usr/local/include/blitz/memblock.h \
-  /usr/local/include/blitz/simdtypes.h \
-  /usr/local/include/blitz/memblock.cc \
-  /usr/local/include/blitz/numtrait.h \
-  /usr/local/include/blitz/range.h \
-  /usr/local/include/blitz/etbase.h \
-  /usr/local/include/blitz/array/asexpr.h \
-  /usr/local/include/blitz/et-forward.h \
-  /usr/local/include/blitz/prettyprint.h \
-  /usr/local/include/blitz/tinyvec2.h \
-  /usr/local/include/blitz/listinit.h \
-  /usr/local/include/blitz/array/slice.h \
-  /usr/local/include/blitz/tvecglobs.h \
-  /usr/local/include/blitz/meta/metaprog.h \
-  /usr/local/include/blitz/tvcross.h \
-  /usr/local/include/blitz/meta/dot.h \
-  /usr/local/include/blitz/promote.h \
-  /usr/local/include/blitz/meta/product.h \
-  /usr/local/include/blitz/meta/sum.h \
-  /usr/local/include/blitz/indexexpr.h \
-  /usr/local/include/blitz/array/domain.h \
-  /usr/local/include/blitz/array/map.h \
-  /usr/local/include/blitz/array/multi.h \
-  /usr/local/include/blitz/array/storage.h \
-  /usr/local/include/blitz/array.cc \
-  /usr/local/include/blitz/array/iter.h \
-  /usr/local/include/blitz/array/fastiter.h \
-  /usr/local/include/blitz/constpointerstack.h \
-  /usr/local/include/blitz/array/asexpr.cc \
-  /usr/local/include/blitz/levicivita.h \
-  /usr/local/include/blitz/shapecheck.h \
-  /usr/local/include/blitz/numinquire.h \
-  /usr/local/include/blitz/tinyvec2io.cc \
-  /usr/local/include/blitz/array/expr.h \
-  /usr/local/include/blitz/bounds.h \
-  /usr/local/include/blitz/tv2fastiter.h \
-  /usr/local/include/blitz/array/expr.cc \
-  /usr/local/include/blitz/range.cc \
-  /usr/local/include/blitz/array/ops.h \
-  /usr/local/include/blitz/ops.h \
-  /usr/local/include/blitz/funcs.h \
-  /usr/local/include/blitz/array/newet-macros.h \
-  /usr/local/include/blitz/array/methods.cc \
-  /usr/local/include/blitz/array/ops.cc \
-  /usr/local/include/blitz/update.h \
-  /usr/local/include/blitz/globeval.cc \
-  /usr/local/include/blitz/ranks.h \
-  /usr/local/include/blitz/tvevaluate.h \
-  /usr/local/include/blitz/meta/vecassign.h \
-  /usr/local/include/blitz/array/io.cc \
-  /usr/local/include/blitz/array/interlace.cc \
-  /usr/local/include/blitz/array/shape.h \
-  /usr/local/include/blitz/array/resize.cc \
-  /usr/local/include/blitz/minmax.h \
-  /usr/local/include/blitz/array/slicing.cc \
-  /usr/local/include/blitz/array/cycle.cc \
-  /usr/local/include/blitz/array/complex.cc \
-  /usr/local/include/blitz/array/et.h \
-  /usr/local/include/blitz/array/newet.h \
-  /usr/local/include/blitz/array/funcs.h \
-  /usr/local/include/blitz/array/reduce.h \
-  /usr/local/include/blitz/reduce.h \
-  /usr/local/include/blitz/array/reduce.cc \
-  /usr/local/include/blitz/array/functorExpr.h \
-  /usr/local/include/blitz/array/zip.h \
-  /usr/local/include/blitz/array/where.h \
-  /usr/local/include/blitz/array/indirect.h \
-  /usr/local/include/blitz/array/cartesian.h \
-  /usr/local/include/blitz/array/stencils.h \
-  /usr/local/include/blitz/array/stencilops.h \
-  /usr/local/include/blitz/array/geometry.h \
-  /usr/local/include/blitz/tinymat2.h \
-  /usr/local/include/blitz/indexmap-forward.h \
-  /usr/local/include/blitz/tm2fastiter.h \
-  /usr/local/include/blitz/array/stencils.cc \
-  /usr/local/include/blitz/tinymat2.cc \
-  /usr/local/include/blitz/tmevaluate.h \
-  /usr/local/include/blitz/tinymat2io.cc \
-  /usr/local/include/blitz/tinyvec2.cc
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/fstream \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/filesystem \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/iomanip
 
 
-/usr/local/include/blitz/tinyvec2.cc:
-
-/usr/local/include/blitz/tinymat2.cc:
-
-/usr/local/include/blitz/array/geometry.h:
-
-/usr/local/include/blitz/array/stencilops.h:
-
-/usr/local/include/blitz/array/stencils.h:
-
-/usr/local/include/blitz/array/cartesian.h:
-
-/usr/local/include/blitz/array/indirect.h:
-
-/usr/local/include/blitz/array/et.h:
-
-/usr/local/include/blitz/minmax.h:
-
-/usr/local/include/blitz/array/resize.cc:
-
-/usr/local/include/blitz/array/shape.h:
-
-/usr/local/include/blitz/update.h:
-
-/usr/local/include/blitz/array/newet-macros.h:
-
-/usr/local/include/blitz/range.cc:
-
-/usr/local/include/blitz/array/expr.cc:
-
-/usr/local/include/blitz/bounds.h:
-
-/usr/local/include/blitz/array/expr.h:
-
-/usr/local/include/blitz/numinquire.h:
-
-/usr/local/include/blitz/array.cc:
-
-/usr/local/include/blitz/array/storage.h:
-
-/usr/local/include/blitz/array/domain.h:
-
-/usr/local/include/blitz/meta/sum.h:
-
-/usr/local/include/blitz/meta/metaprog.h:
-
-/usr/local/include/blitz/array/slice.h:
-
-/usr/local/include/blitz/listinit.h:
-
-/usr/local/include/blitz/array/asexpr.h:
-
-/usr/local/include/blitz/range.h:
-
-/usr/local/include/blitz/memblock.cc:
-
-/usr/local/include/blitz/tuning.h:
-
-/usr/local/include/blitz/compiler.h:
-
-/usr/local/include/blitz/llvm/bzconfig.h:
-
-/usr/local/include/blitz/indexmap-forward.h:
-
-/usr/local/include/blitz/levicivita.h:
-
-/usr/local/include/blitz/blitz.h:
-
-/usr/local/include/blitz/array-impl.h:
-
-/usr/local/include/blitz/array.h:
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/fstream:
 
 /usr/local/include/boost/filesystem/fstream.hpp:
 
@@ -901,8 +742,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/io/quoted.hpp:
 
-/usr/local/include/blitz/array/functorExpr.h:
-
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp:
@@ -922,8 +761,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp:
 
 /usr/local/include/boost/mpl/lambda.hpp:
-
-/usr/local/include/blitz/array/zip.h:
 
 /usr/local/include/boost/mpl/aux_/config/has_apply.hpp:
 
@@ -949,8 +786,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/type_traits/remove_const.hpp:
 
-/usr/local/include/blitz/simdtypes.h:
-
 /usr/local/include/boost/type_traits/add_reference.hpp:
 
 /usr/local/include/boost/detail/select_type.hpp:
@@ -963,11 +798,7 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/type_traits/is_const.hpp:
 
-/usr/local/include/blitz/funcs.h:
-
 /usr/local/include/boost/type_traits/is_same.hpp:
-
-/usr/local/include/blitz/array/complex.cc:
 
 /usr/local/include/boost/mpl/and.hpp:
 
@@ -1005,8 +836,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/type_traits/is_reference.hpp:
 
-/usr/local/include/blitz/array/map.h:
-
 /usr/local/include/boost/type_traits/is_void.hpp:
 
 /usr/local/include/boost/type_traits/add_rvalue_reference.hpp:
@@ -1019,21 +848,15 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/type_traits/is_convertible.hpp:
 
-/usr/local/include/blitz/tinymat2io.cc:
-
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/or.hpp:
 
 /usr/local/include/boost/mpl/aux_/config/overload_resolution.hpp:
 
 /usr/local/include/boost/mpl/aux_/config/eti.hpp:
 
-/usr/local/include/blitz/bzconfig.h:
-
 /usr/local/include/boost/preprocessor/arithmetic/sub.hpp:
 
 /usr/local/include/boost/preprocessor/arithmetic/detail/is_minimum_number.hpp:
-
-/usr/local/include/blitz/tvevaluate.h:
 
 /usr/local/include/boost/preprocessor/comparison/not_equal.hpp:
 
@@ -1133,11 +956,19 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/mpl/int.hpp:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/iomanip:
+
+/usr/local/include/boost/mpl/aux_/config/lambda.hpp:
+
 /usr/local/include/boost/mpl/aux_/config/ctps.hpp:
 
 /usr/local/include/boost/mpl/aux_/na_fwd.hpp:
 
 /usr/local/include/boost/mpl/aux_/na.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/filesystem:
+
+/usr/local/include/boost/mpl/void_fwd.hpp:
 
 /usr/local/include/boost/mpl/lambda_fwd.hpp:
 
@@ -1154,8 +985,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /usr/local/include/boost/mpl/aux_/config/static_constant.hpp:
 
 /usr/local/include/boost/mpl/integral_c_tag.hpp:
-
-/usr/local/include/blitz/reduce.h:
 
 /usr/local/include/boost/mpl/aux_/config/intel.hpp:
 
@@ -1195,8 +1024,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__tree:
 
-/usr/local/include/blitz/array/reduce.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/map:
 
 /usr/local/include/boost/system/detail/to_std_category.hpp:
@@ -1225,8 +1052,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/system/detail/config.hpp:
 
-/usr/local/include/blitz/array/slicing.cc:
-
 /usr/local/include/boost/system/detail/error_category.hpp:
 
 /usr/local/include/boost/system/detail/error_code.hpp:
@@ -1237,17 +1062,11 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/type_traits/remove_reference.hpp:
 
-/usr/local/include/blitz/tinyvec2io.cc:
-
 /usr/local/include/boost/type_traits/remove_bounds.hpp:
 
 /usr/local/include/boost/type_traits/remove_cv.hpp:
 
 /usr/local/include/boost/type_traits/detail/is_function_cxx_11.hpp:
-
-/usr/local/include/blitz/array/asexpr.cc:
-
-/usr/local/include/blitz/tvecglobs.h:
 
 /usr/local/include/boost/version.hpp:
 
@@ -1255,13 +1074,9 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/type_traits/decay.hpp:
 
-/usr/local/include/blitz/prettyprint.h:
-
 /usr/local/include/boost/preprocessor/logical/bool.hpp:
 
 /usr/local/include/boost/type_traits/is_array.hpp:
-
-/usr/local/include/blitz/bzdebug.h:
 
 /usr/local/include/boost/mpl/identity.hpp:
 
@@ -1277,15 +1092,11 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/config/detail/posix_features.hpp:
 
-/usr/local/include/blitz/tinyvec2.h:
-
 /usr/local/include/boost/config/detail/select_platform_config.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/shared_mutex:
 
 /usr/local/include/boost/config/stdlib/libcpp.hpp:
-
-/usr/local/include/blitz/shapecheck.h:
 
 /usr/local/include/boost/preprocessor/facilities/identity.hpp:
 
@@ -1299,9 +1110,11 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /usr/local/include/boost/filesystem/config.hpp:
 
-/usr/local/include/boost/filesystem.hpp:
+/usr/local/include/boost/config/no_tr1/functional.hpp:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/array:
+/Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_int4_precision.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/gethostuuid.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_select.h:
 
@@ -1355,8 +1168,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double4x4_precision.hpp:
 
-/usr/local/include/blitz/et-forward.h:
-
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/type_mat4x4.inl:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double4x4.hpp:
@@ -1389,8 +1200,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double3x4.hpp:
 
-/usr/local/include/blitz/tinymat2.h:
-
 /usr/local/include/boost/io/detail/buffer_fill.hpp:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double3x4_precision.hpp:
@@ -1421,17 +1230,15 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/mat3x2.hpp:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/complex:
-
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_float2x4_precision.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/machine/_mcontext.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_float2x4.hpp:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/regex:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__debug:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/regex:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/type_mat2x2.hpp:
 
@@ -1463,8 +1270,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double2x2.hpp:
 
-/usr/local/include/blitz/array/fastiter.h:
-
 /usr/local/include/boost/preprocessor/list/fold_left.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/typeinfo:
@@ -1482,8 +1287,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_useconds_t.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_double4_precision.hpp:
-
-/usr/local/include/blitz/array/stencils.cc:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_float4_precision.hpp:
 
@@ -1504,8 +1307,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/vec4.hpp:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_uint3.hpp:
-
-/usr/local/include/blitz/tmevaluate.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_int3_precision.hpp:
 
@@ -1529,8 +1330,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/type_vec3.hpp:
 
-/usr/local/include/blitz/indexexpr.h:
-
 /usr/local/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_fsblkcnt_t.h:
@@ -1538,8 +1337,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_bool3.hpp:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/vec3.hpp:
-
-/usr/local/include/blitz/tm2fastiter.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_uint2_precision.hpp:
 
@@ -1552,8 +1349,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/vector_relational.hpp:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_int2.hpp:
-
-/usr/local/include/blitz/array/multi.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_double2.hpp:
 
@@ -1619,8 +1414,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/setup.hpp:
 
-/usr/local/include/blitz/array/ops.h:
-
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/glm.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/stdbool.h:
@@ -1628,8 +1421,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Users/aaa/myfile/bitbucket/clib/AronCLibNew.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_uint3_precision.hpp:
-
-/usr/local/include/blitz/array/methods.cc:
 
 /usr/local/include/boost/mpl/aux_/nttp_decl.hpp:
 
@@ -1657,17 +1448,9 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/math.h:
 
-/usr/local/include/blitz/array/where.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/cmath:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/sstream:
-
-/usr/local/include/boost/mpl/void_fwd.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/filesystem:
-
-/usr/local/include/blitz/ops.h:
 
 /usr/local/include/boost/io_fwd.hpp:
 
@@ -1709,9 +1492,9 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/type_mat3x3.inl:
 
-/usr/local/include/boost/filesystem/operations.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/stack:
+
+/usr/local/include/boost/filesystem/operations.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_nlink_t.h:
 
@@ -1742,8 +1525,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /usr/local/include/boost/preprocessor/repeat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_blksize_t.h:
-
-/usr/local/include/blitz/meta/dot.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_blkcnt_t.h:
 
@@ -1779,8 +1560,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__string:
 
-/usr/local/include/blitz/array/newet.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/locale:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_float2x3.hpp:
@@ -1811,8 +1590,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/cerrno:
 
-/usr/local/include/blitz/memblock.h:
-
 /usr/local/include/boost/mpl/aux_/common_name_wknd.hpp:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_uint4_precision.hpp:
@@ -1822,8 +1599,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/mutex:
-
-/usr/local/include/blitz/meta/vecassign.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_int3.hpp:
 
@@ -1945,8 +1720,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_float4x2.hpp:
 
-/usr/local/include/blitz/array/reduce.cc:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/alloca.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/cwctype:
@@ -1981,6 +1754,8 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_sigset_t.h:
 
+/usr/local/include/boost/filesystem.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/float.h:
 
 /usr/local/include/boost/core/addressof.hpp:
@@ -1988,8 +1763,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_pthread/_pthread_attr_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/mach/machine/_structs.h:
-
-/usr/local/include/blitz/numtrait.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/i386/_mcontext.h:
 
@@ -2021,8 +1794,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/syslimits.h:
 
-/usr/local/include/blitz/constpointerstack.h:
-
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/limits.h:
@@ -2037,15 +1808,13 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/utility:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/array:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/stdlib.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_pthread/_pthread_rwlock_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__functional_base:
-
-/usr/local/include/blitz/ranks.h:
-
-/usr/local/include/blitz/globeval.cc:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/wctype.h:
 
@@ -2071,12 +1840,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_pthread/_pthread_condattr_t.h:
 
-/usr/local/include/boost/config/no_tr1/functional.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/gethostuuid.h:
-
-/Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_int4_precision.hpp:
-
 /usr/local/include/boost/smart_ptr/detail/operator_bool.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/ios:
@@ -2091,15 +1854,11 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/machine/signal.h:
 
-/usr/local/include/blitz/array/cycle.cc:
-
 /usr/local/include/boost/preprocessor/arithmetic/inc.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/cstring:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/_ctermid.h:
-
-/usr/local/include/blitz/array/funcs.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/xlocale/_wctype.h:
 
@@ -2145,8 +1904,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/Availability.h:
 
-/usr/local/include/blitz/etbase.h:
-
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double2x3_precision.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_symbol_aliasing.h:
@@ -2165,8 +1922,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_suseconds_t.h:
 
-/usr/local/include/blitz/array/interlace.cc:
-
 /usr/local/include/boost/iterator/interoperable.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_time_t.h:
@@ -2184,8 +1939,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_bool2_precision.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/time.h:
-
-/usr/local/include/blitz/tau.h:
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/type_mat2x4.hpp:
 
@@ -2237,13 +1990,9 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/string.h:
 
-/usr/local/include/blitz/tvcross.h:
-
 /usr/local/include/boost/type_traits/integral_constant.hpp:
 
 /Users/aaa/myfile/bitbucket/cpplib/AronLib.h:
-
-/usr/local/include/blitz/promote.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_intptr_t.h:
 
@@ -2277,13 +2026,9 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/detail/type_mat3x2.inl:
 
-/usr/local/include/blitz/meta/product.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_int16_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__threading_support:
-
-/usr/local/include/blitz/array/ops.cc:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/exception:
 
@@ -2313,8 +2058,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/_ctype.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/fstream:
-
 /usr/local/include/boost/preprocessor/variadic/elem.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_pthread/_pthread_types.h:
@@ -2324,8 +2067,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /usr/local/include/boost/preprocessor/list/fold_right.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/wchar.h:
-
-/usr/local/include/blitz/array/io.cc:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/cstdint:
 
@@ -2355,15 +2096,9 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/matrix_double3x3_precision.hpp:
 
-/usr/local/include/blitz/tv2fastiter.h:
-
 /Users/aaa/myfile/bitbucket/cpplib/glm/glm/ext/vector_double2_precision.hpp:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/12.0.5/include/stdint.h:
-
-/usr/local/include/boost/mpl/aux_/config/lambda.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/iomanip:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/climits:
 
@@ -2372,8 +2107,6 @@ CMakeFiles/cpp.dir/cpp.cpp.o: ../cpp.cpp \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/__split_buffer:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_va_list.h:
-
-/usr/local/include/blitz/array/iter.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/cdefs.h:
 
