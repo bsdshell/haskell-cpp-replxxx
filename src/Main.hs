@@ -618,16 +618,37 @@ repl acc n ioRef = do
   
                          | hasPrefix ":exe" v -> do
                            liftIO execCode
-                           repl [] n ioRef  
-                             
-                         | hasPrefix ":add" v -> do
+                           repl [] n ioRef
+                         | hasPrefix "::" v -> do
+                             let cmd = dropPrefix "::" v
+                             (exCode, stdout, stderr) <- liftIO $ runShStr cmd
+                             if exCode == ExitSuccess then do
+                               liftIO $ mapM_ putStrLn $ lines stdout
+                               else do
+                               liftIO $ print $ "ERROR: " ++ stderr
+                             repl [] n ioRef
+  
+                         | hasPrefix ":pre" v -> do
                              cppEditedFile <- liftIO getEditedFile
                              ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                             let ns = dropPrefix ":add" v
+                             let ns = dropPrefix ":pre" v
+                             let n = read ns :: Int
+                             let left = take n ls 
+                             let right = drop n ls
+                             let lt = left ++ reverse acc ++ right
+                             liftIO $ pre lt
+                             liftIO $ writeFileList cppEditedFile lt
+                             liftIO lsCode
+                             repl [] n ioRef
+  
+                         | hasPrefix ":next" v -> do
+                             cppEditedFile <- liftIO getEditedFile
+                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                             let ns = dropPrefix ":next" v
                              let n = read ns :: Int
                              let left = take (n + 1) ls 
                              let right = drop (n + 1) ls
-                             let lt = left ++ acc ++ right
+                             let lt = left ++ reverse acc ++ right
                              liftIO $ pre lt
                              liftIO $ writeFileList cppEditedFile lt
                              liftIO lsCode
@@ -674,7 +695,16 @@ repl acc n ioRef = do
   
                              liftIO $ pre cx
                              repl [] n ioRef
-
+  
+                         | hasPrefix ":db" v -> do
+                             let p = qr <> [r| -dropindex|]
+                             let ns = dropPrefix ":db" v
+                             cx <- liftIO $ run $ p ++ " " ++ ns
+                             liftIO $ print cx
+                             liftIO lsCode
+  
+                             liftIO $ pre cx
+                             repl [] n ioRef
                          -- Print fileBlock
                          | hasPrefix ":pb" v -> do
                              let s = qr <> [r|-size|]
@@ -726,7 +756,7 @@ repl acc n ioRef = do
                              liftIO lsCode
                              repl [] n ioRef
 
-                         | hasPrefix ":pre" v -> do
+                         | hasPrefix ":top" v -> do
                            cppFile <- liftIO getCppFile
                            cppEditedFile <- liftIO getEditedFile
                            ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ trimList $ lines x
