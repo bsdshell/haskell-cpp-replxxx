@@ -76,6 +76,7 @@ mycmd = [
       ":dl n     => Delete nth line",
       ":df 2 4   => Delete from 2nd to 4th lines",
       ":dr n     => Delete nth line and Replace with current code",
+      ":dfb n    => Delete nth block from fileBLock",
       ":ls       => List source file",
       ":run      => Run source file",
       ":rep      => Insert snippet to cpp.cpp",
@@ -220,10 +221,13 @@ runCode cx cy = do
       ls <- readFileStrict cppEditedFile >>= return . lines
       writeFileList cppFile $ cx ++ ls ++ cy
       cd "src/code"
-      (ext, stout, sterr) <- runShStr "cmake --build build -- -j12"
+      -- (ext, stout, sterr) <- runShStr "cmake --build build -- -j12"
+      -- SEE: https://ilyas-hamadouche.medium.com/build-your-c-projects-faster-using-ninja-3d7af9b418fc
+      (ext, stout, sterr) <- runShStr "ninja"
       cd rootDir
       if ext == ExitSuccess then do 
-        logFileG ["cmake --build build -- -j3 => ExitSuccess"]
+        -- logFileG ["cmake --build build -- -j3 => ExitSuccess"]
+        logFileG ["ninja"]
         -- clear
         (cmdExit, cmdOut, cmdErr) <- runShStr "./src/code/bin/cpp"
         if cmdExit == ExitSuccess then do
@@ -906,7 +910,8 @@ keywords = [
            ,":pre"    
            ,":dl"     
            ,":df"   
-           ,":dr"     
+           ,":dr"
+           ,":dfb"
            ,":ls"       
            ,":run"      
            ,":rep"      

@@ -1,4 +1,33 @@
 :q
+:ls
+:pb
+:dfb 1
+:pb
+:mv 7 10
+:pb
+:ls
+:ls
+:run
+:run 
+:ls
+:exe
+:exe
+:exe
+:run
+:run
+:next 7
+m1.geneMat(200);
+:hsc geneM
+:run
+:app
+m2.print();
+mat m2 = m1 * m1 * m1;
+mat m1(10, 10);
+:ls
+:run
+:run
+:ls
+:q
 :run
 :ls
 :ls
