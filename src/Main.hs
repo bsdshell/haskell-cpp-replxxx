@@ -923,6 +923,7 @@ keywords = [
            ,":cr"       
            ]
 
+  
 search :: String -> [Completion]
 search s = map simpleCompletion $ filter (s `L.isPrefixOf`) keywords
   

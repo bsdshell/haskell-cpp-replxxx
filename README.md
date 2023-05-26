@@ -18,6 +18,7 @@
       :dl n     => Delete nth line,
       :df 2 4   => Delete from 2nd to 4th lines,
       :dr n     => Delete nth line and Replace with current code,
+      :dfb n    => Delete nth block from fileBlock,
       :ls       => List source file,
       :run      => Run source file,
       :rep      => Insert snippet to cpp.cpp,
