@@ -1,0 +1,15 @@
+:q
+:run
+:ls
+:ls
+:dl 4 6
+:ls
+:get 0
+:pb
+:ls
+:run 
+:ls 
+:ls
+:ls
+:ls
+:q

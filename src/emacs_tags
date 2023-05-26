@@ -930,52 +930,57 @@ rfl rfl80,81
 env env82,83
 s2Text s2Text84,85
 
-/Users/aaa/myfile/github/haskell-cpp-repel/src/Main.hs,1349
+/Users/aaa/myfile/github/haskell-cpp-repel/src/Main.hs,1482
 p1 p142,43
-mycmd mycmd64,65
-headStr headStr90,91
-libSimple libSimple110,111
-libAronLib libAronLib120,121
-mainStr mainStr143,144
-tailStr tailStr149,150
-getTemplate:getTemplate153,154
-repelPath repelPath162,163
-getCppFile getCppFile176,177
-getEditedFile getEditedFile185,186
-lsHeadAll lsHeadAll193,194
-lsHeadSimple lsHeadSimple196,197
-conStr conStr199,200
-execCode execCode201,202
-runCode runCode211,212
-repFile:repFile250,251
-delCode:delCode259,260
-clearCode:clearCode272,273
-cmdRun:cmdRun276,277
-cppSnippet:cppSnippet284,285
-showCode showCode294,295
-showHead showHead304,305
-lsCode:lsCode315,316
-lsTmp:lsTmp320,321
-lsAllCode:lsAllCode326,327
-helpMe:helpMe331,332
-data EffectIORef EffectIORef338,339
-data EffectIORef = EffectIORef EffectIORef338,339
-                                 lib_ lib_339,340
-                                 mod_ mod_340,341
-                                 prompt_ prompt_341,342
-getLibIO getLibIO344,345
-modifyLibIO modifyLibIO349,350
-modifyModeIO modifyModeIO355,356
-modifyPromptIO modifyPromptIO361,362
-data RunMode RunMode368,369
-data RunMode = ShellX ShellX368,369
-data RunMode = ShellX | CodeX CodeX368,369
-colorx colorx370,371
-mainXX:mainXX372,373
-type Repl Repl606,607
-process process608,609
-repl repl611,612
-main main868,869
+mycmd mycmd65,66
+headStr headStr91,92
+libSimple libSimple111,112
+libAronLib libAronLib121,122
+mainStr mainStr144,145
+tailStr tailStr150,151
+getTemplate:getTemplate154,155
+repelPath repelPath163,164
+getCppFile getCppFile177,178
+getEditedFile getEditedFile186,187
+lsHeadAll lsHeadAll194,195
+lsHeadSimple lsHeadSimple197,198
+conStr conStr200,201
+execCode execCode202,203
+runCode runCode212,213
+repFile:repFile253,254
+delCode:delCode262,263
+clearCode:clearCode275,276
+cmdRun:cmdRun279,280
+cppSnippet:cppSnippet287,288
+showCode showCode297,298
+showHead showHead307,308
+lsCode:lsCode318,319
+lsTmp:lsTmp323,324
+lsAllCode:lsAllCode329,330
+helpMe:helpMe334,335
+data EffectIORef EffectIORef341,342
+data EffectIORef = EffectIORef EffectIORef341,342
+                                 lib_ lib_342,343
+                                 mod_ mod_343,344
+                                 prompt_ prompt_344,345
+getLibIO getLibIO347,348
+modifyLibIO modifyLibIO352,353
+modifyModeIO modifyModeIO358,359
+modifyPromptIO modifyPromptIO364,365
+data RunMode RunMode371,372
+data RunMode = ShellX ShellX371,372
+data RunMode = ShellX | CodeX CodeX371,372
+colorx colorx373,374
+mainXX:mainXX375,376
+fbFile fbFile609,610
+delimiter delimiter610,611
+type Repl Repl612,613
+process process614,615
+repl repl617,618
+mySettings mySettings888,889
+keywords keywords895,896
+search search898,899
+main main901,902
 
 /Users/aaa/myfile/github/haskell-cpp-repel/src/AronHtml2.hs,697
 module AronHtml2 AronHtml22,3

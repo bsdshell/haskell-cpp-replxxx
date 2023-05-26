@@ -65,8 +65,8 @@ main = runInputT defaultSettings loop
 mycmd = [
       ":h        => Help",
       ":q        => Quit",
-      ":mod sh   => shell mode",
-      ":mod code => cpp mode",
+      ":mod sh   => Shell mode",
+      ":mod code => Cpp mode",
       ":get n    => Get nth block from fileBlock",
       ":keep m n => Keep mth to nth lines in Code",
       ":lib s    => Simple library",
@@ -83,7 +83,7 @@ mycmd = [
       ":sw 2 3   => Swap line 2 and 3",
       ":heada    => Show libAronLib",
       ":heads    => Show libSimple",
-      ":hsc      =>",
+      ":hsc      => Search AronLib.h",
       ":cr       => Clear screen"
     ]
 
@@ -606,6 +606,9 @@ mainXX = do
   loop ioRef rightL 0 []
   print "done"
 
+fbFile = "/tmp/kk.x"
+delimiter = "-"
+  
 type Repl a = InputT IO a
 
 process :: [String] -> IO ()
@@ -789,6 +792,16 @@ repl acc n ioRef = do
                                             -- liftIO $ writeFileList cppEditedFile lt
                                             liftIO lsCode
                                             repl [] n ioRef
+                                                  
+                                        | strEq ":dfb" v -> do
+                                            cppEditedFile <- liftIO getEditedFile
+                                            ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
+                                            let ns = dropPrefix ":dfb" s
+                                            let inx = read ns :: Int
+                                            liftIO $ fileBlock fbFile delimiter $ DropIndex inx
+                                            -- liftIO $ writeFileList cppEditedFile lt
+                                            liftIO lsCode
+                                            repl [] n ioRef
 
                                         -- Delete and Replace             
                                         | strEq ":dr" v -> do
@@ -870,7 +883,46 @@ repl acc n ioRef = do
     strEq = (==)
     -- colorx ls = map (concat . colorToken) $ map (tokenize) ls
 
+
+-- SEE: https://stackoverflow.com/questions/29390884/ambiguous-type-variable-with-haskeline-auto-completion
+mySettings :: Settings IO
+mySettings = (defaultSettings :: Settings IO)
+          {
+           historyFile = Just "myhist"
+          , complete = completeWord Nothing " \t" $ return . search
+          }
+  
+keywords :: [String]
+keywords = [
+           ":h"        
+           ,":q"        
+           ,":mod" 
+           ,":mod" 
+           ,":get"    
+           ,":keep" 
+           ,":lib"    
+           ,":lib"    
+           ,":next"   
+           ,":pre"    
+           ,":dl"     
+           ,":df"   
+           ,":dr"     
+           ,":ls"       
+           ,":run"      
+           ,":rep"      
+           ,":app"      
+           ,":sw"   
+           ,":heada"    
+           ,":heads"    
+           ,":hsc"      
+           ,":cr"       
+           ]
+
+search :: String -> [Completion]
+search s = map simpleCompletion $ filter (s `L.isPrefixOf`) keywords
+  
 main :: IO ()
 main = do
        ioRef <- newIORef EffectIORef { lib_ = libAronLib, mod_ = CodeX, prompt_ = "> " }
-       runInputT defaultSettings $ repl [] 0 ioRef
+       -- runInputT defaultSettings $ repl [] 0 ioRef
+       runInputT mySettings $ repl [] 0 ioRef

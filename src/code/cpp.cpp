@@ -16,9 +16,9 @@ using namespace std;
 int main() {
 // std::cout<<"cool"<<std::endl;
 {
-    vector<int> v {1, 2, 3};
-    for(auto x : v) {
-        printf(x);
-    }
+    cout<<"Hello World"<<endl;
+}
+{
+    cout<<"Hello World"<<endl;
 }
 }
