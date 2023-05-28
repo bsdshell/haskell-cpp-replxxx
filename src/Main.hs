@@ -210,6 +210,35 @@ execCode = do
         pp "ERROR: Run ./src/code/bin/cpp"
         putStrLn $ toStr cmdErr
 
+buildNinja :: IO()
+buildNinja = do
+  let cmd = "cmake -G Ninja"
+  let delCache = "rm CMakeCache.txt"
+  rootDir <- getpwd
+  
+  -- Change to rootDir/src/code
+  cd $ rootDir </> "src" </> "code"
+  (ex, _, err) <- runShStr delCache
+  when (ex /= ExitSuccess) $ do
+    pp $ "ERROR:" ++ err
+
+  
+  (ext, stout, sterr) <- runShStr cmd
+  if ext == ExitSuccess then do 
+    -- logFileG ["cmake --build build -- -j3 => ExitSuccess"]
+    logFileG [cmd]
+    pp "OK: Build"
+    putStrLn cmd
+    -- clear
+  else do
+    let err = "ERROR: Run " ++ cmd
+    pp err
+    logFileG [err]
+    putStrLn err
+
+  -- Go back to root dir
+  cd rootDir
+
 runCode :: [String ] -> [String]-> IO()
 runCode cx cy = do
       -- clear
@@ -676,6 +705,10 @@ repl acc n ioRef = do
                                                      repl [] n ioRef
                                         | strEq ":run" v -> do
                                           liftIO $ runCode left right
+                                          repl [] n ioRef
+  
+                                        | strEq ":build" v -> do
+                                          liftIO buildNinja
                                           repl [] n ioRef
 
                                         | strEq ":exe" v -> do

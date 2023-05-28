@@ -1,8 +1,5 @@
 :q
-:run
 :build
-:run
-:q
 :q
 :build
 :run
