@@ -1,4 +1,13 @@
 :q
+:ls
+:q
+:ls
+:ls
+:q
+:dr 7
+mat m1(4, 4);
+:ls
+:q
 :run
 :build
 :run

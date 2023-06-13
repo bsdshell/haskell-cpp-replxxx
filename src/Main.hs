@@ -844,11 +844,11 @@ repl acc n ioRef = do
                                         | strEq ":dr" v -> do
                                           cppEditedFile <- liftIO getEditedFile
                                           let ns = dropPrefix "dr" s
-                                          let n = read (trim ns) :: Int
+                                          let nx = read (trim ns) :: Int
                                           str <- liftIO $ readFileStrict cppEditedFile
                                           let ls = lines str
-                                          let left = take n ls
-                                          let right = drop (n+1) ls
+                                          let left = take nx ls
+                                          let right = drop (nx+1) ls
                                           let lt = left ++ acc ++ right
                                           liftIO $ writeFileList cppEditedFile lt
                                           liftIO lsCode
