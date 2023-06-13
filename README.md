@@ -29,4 +29,5 @@
       :hsc      =>,
       :cr       => Clear screen
 ```
-
+* Tue 13 Jun 01:24:51 2023 
+* Fixed :dr command
