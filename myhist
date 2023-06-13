@@ -1,4 +1,31 @@
 :q
+:qa
+:run
+:dr 0
+printf("kk");
+:ls
+:dr 0
+printf("kk");
+:ls
+printf("kk"0;
+:ls
+:dr 0
+printf("kk");
+:run
+:next 0
+printf("ok");
+:ls
+:ls
+:dr 1
+pp(v);
+:run
+:ls
+:next 0
+pl(v);
+vector<int> v = {1, 2, 3};
+:ls
+:ls
+:q
 :ls
 :q
 :ls

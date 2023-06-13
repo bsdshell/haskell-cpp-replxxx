@@ -400,244 +400,10 @@ modifyPromptIO ioRef s = do
   let r = (\x -> eff{prompt_ = x}) s
   writeIORef ioRef r
   
-
 data RunMode = ShellX | CodeX deriving (Show, Eq)
   
 colorx ls = map (concat . colorToken) $ map (tokenize) ls
   
-mainXX::IO()
-mainXX = do
-  let x = 3
-
-  let upLine = 20
-  ioRef <- newIORef $ lines libAronLib
-  -- ioRef <- newIORef EffectIORef
-  clear
-  curr <- getCurrentDirectory
-  putStrLn $ "curr=" ++ curr
-  (mainOpen, rightL) <- getTemplate headStr tailStr
-  
-  let loop ioRef rightL n cx = do
-        cppEditedFile <- getEditedFile
-        mainHead <- readIORef ioRef >>= \x -> return $ x ++ (lines mainStr)
-        setCursorPos (10 + n)  4 
-        AN.clearFromCursorToLineEnd
-        -- AN.cursorForward 4
-        -- s <- getLineFlush >>= return . trim
-        s <- getLineFlush
-        -- AN.cursorUp upLine 
-        -- putStrLn $ "\t" ++ s
-        if | hasPrefix ":run" s -> do
-             runCode mainHead rightL
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":exe" s -> do
-             execCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":rep" s -> do
-             repFile mainHead cx rightL
-             lsCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":del" s -> do
-             delCode
-             lsCode
-             loop ioRef rightL 0 []
-           | hasPrefix ":cr" s -> do
-             clearCode             
-             loop ioRef rightL 0 []
-           | hasPrefix ":cmd" s -> do
-             cmdRun s
-             loop ioRef rightL 0 []
-           | hasPrefix ":hsc" s -> do
-             cppSnippet s 
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":ls" s -> do
-             lsCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":tmp" s -> do
-             lsTmp
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":all" s -> do
-             lsAllCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":heada" s -> do
-             showHead libAronLib
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":heads" s -> do
-             showHead libSimple
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":lib" s -> do
-             let ss = trim $ drop (len ":lib") s
-             if ss == "s" then do
-                 putStrLn ss
-                 setCursorPos 40  4
-                 writeIORef ioRef (lines libSimple)
-                 putStrLn "Set lib => libSimple"
-               else do
-                 writeIORef ioRef (lines libAronLib)
-                 setCursorPos 40  4
-                 putStrLn "Set lib => libAronLib"
-  
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":dr" s -> do
-             let ns = drop 3 s
-             let n = read (trim ns) :: Int
-
-             str <- readFileStrict cppEditedFile
-             let ls = lines str
-             let left = take n ls
-             let right = drop (n+1) ls
-             let lt = left ++ cx ++ right
-             writeFileList cppEditedFile lt
-             lsCode
-
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":empty" s -> do
-             cppEditedFile <- getEditedFile
-             writeFileList cppEditedFile []
-             lsCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":add" s -> do
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
-             let ns = trim $ drop (len ":add") s
-             let n = read ns ::Int
-             let left = take (n+1) ls 
-             let right = drop (n+1) ls
-             let lt = left ++ cx ++ right
-             writeFileList cppEditedFile lt
-             lsCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":dl" s -> do
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
-             let ns = trim $ drop (len ":dl") s
-             let n = read ns ::Int
-             let left = take (n) ls 
-             let right = drop (n+1) ls
-             let lt = left ++ right
-             writeFileList cppEditedFile lt
-             lsCode
-             loop ioRef rightL 0 []
-  
-
-           | hasPrefix ":df" s -> do
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
-             let ns = trim $ drop (len ":df") s
-             let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
-             
-             let n1 = head lr
-             let n2 = last lr
-             
-             let left = take n1 ls 
-             let right = drop (n2 + 1) ls
-             let lt = left ++ right
-             writeFileList cppEditedFile lt
-             lsCode
-             loop ioRef rightL 0 []
-  
-           | hasPrefix ":take" s -> do
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
-             let ns = trim $ drop (len ":take") s
-             let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
-             let n1 = head lr
-             let n2 = last lr
-             let lv = take (n2 - n1 + 1) $ drop n1 ls
-             writeFileList cppEditedFile lv
-             lsCode
-             loop ioRef rightL 0 []
-  
-  
-           | hasPrefix ":sw" s -> do
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \x -> return $ lines x
-             let two = trimList $ splitSPC $ trim $ drop (len ":sw") s
-             if len two == 2 then do
-               let m = let x = head two in read x ::Int
-               let n = let x = last two in read x ::Int
-               -- sw 2 4
-               --  0 1 2 3 4 5
-               --      2   4
-               --  s1 = 0 1
-               --  mx = 2
-               --  s2 = 
-               let s1 = take m ls
-               let mx = take 1 $ drop m ls
-               let s2 = take (n - m - 1) $ drop (m + 1) ls
-               let nx = take 1 $ drop n ls
-               let s3 = drop (n + 1) ls
-               let lt = s1 ++ nx ++ s2 ++ mx ++ s3
-               writeFileList cppEditedFile lt
-               lsCode
-             else do
-               print "Invalid Input"
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":app" s -> do
-             cppFile <- getCppFile
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
-             -- let lt = ls ++ (reverse cx)
-             let lt = ls ++ ["{"] ++ (reverse cx) ++ ["}"]
-             writeFileList cppEditedFile lt
-             lsCode
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":cp" s -> do
-             cppFile <- getCppFile
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
-             cs <- getEnv "t" >>= \x -> readFileStrict x >>= \s -> return $ lines s
-             let lt = ls ++ ["{"] ++ cs ++ ["}"]
-             writeFileList cppEditedFile lt
-             lsCode
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":pad" s -> do
-             cppFile <- getCppFile
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
-             let lt = ls ++ (reverse cx)
-             writeFileList cppEditedFile lt
-             lsCode
-             
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":pre" s -> do
-             cppFile <- getCppFile
-             cppEditedFile <- getEditedFile
-             ls <- readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
-             let lt = (reverse cx) ++ ls
-             writeFileList cppEditedFile lt
-             lsCode
-
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":h" s -> do
-             helpMe 
-             loop ioRef rightL 0 []
-
-           | hasPrefix ":q" s -> do
-             pp "done"
-           | otherwise -> do 
-             loop ioRef rightL (n + 1) (s:cx)
-
-  loop ioRef rightL 0 []
-  print "done"
 
 fbFile = "/tmp/kk.x"
 delimiter = "-"
@@ -843,12 +609,17 @@ repl acc n ioRef = do
                                         -- Delete and Replace             
                                         | strEq ":dr" v -> do
                                           cppEditedFile <- liftIO getEditedFile
-                                          let ns = dropPrefix "dr" s
-                                          let nx = read (trim ns) :: Int
+                                          let ns = dropPrefix ":dr" s
+                                          liftIO $ fw "ns"
+                                          liftIO $ pp ns 
+                                          let nx = read ns :: Int
+                                          liftIO $ fw "nx"
+                                          liftIO $ pp nx
+                                          liftIO $ threadDelay $ 1000 * 1000 * 3 
                                           str <- liftIO $ readFileStrict cppEditedFile
                                           let ls = lines str
                                           let left = take nx ls
-                                          let right = drop (nx+1) ls
+                                          let right = drop (nx + 1) ls
                                           let lt = left ++ acc ++ right
                                           liftIO $ writeFileList cppEditedFile lt
                                           liftIO lsCode
