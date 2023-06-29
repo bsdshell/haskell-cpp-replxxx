@@ -1,4 +1,7 @@
 :q
+:run
+:ls
+:q
 :qa
 :run
 :dr 0
@@ -95,6 +98,3 @@ mat m1(10, 10);
 :run 
 :ls 
 :ls
-:ls
-:ls
-:q
