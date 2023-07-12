@@ -27,6 +27,7 @@ import Text.Regex.Posix
 import Data.IORef 
 import Control.Monad (unless, when)
 import Control.Concurrent
+import Control.Arrow
 import qualified Data.Text                 as TS  -- Strict Text
 import qualified System.Console.Pretty as SCP
 
@@ -424,10 +425,10 @@ repl acc n ioRef = do
   case minput of
     Nothing -> outputStrLn "Goodbye."
     Just s -> do
-                  case let lv = splitSPC $ trim s in null lv ? [] $ head lv of
-                     v | strEq ":mod" v -> do
-                         let ns = dropPrefix ":mod" s
-                         case ns of
+                  -- case let lv = splitSPC $ trim s in null lv ? [] $ head lv of
+               case let lv = break (== ' ') $ trim s in join (***) trim lv of
+                (v, w) | strEq ":mod" v -> do
+                         case w of
                            var | var == "sh" -> do
                                    liftIO $ modifyPromptIO ioRef ">> "
                                    liftIO $ modifyModeIO ioRef ShellX
@@ -495,11 +496,10 @@ repl acc n ioRef = do
                                           repl [] n ioRef  
 
 
-                                        | strEq ":pre" v -> do
+                                        | strEq ":pre" $v -> do
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                            let ns = dropPrefix ":pre" s
-                                            let n = read ns :: Int
+                                            let n = read w :: Int
                                             let left = take n ls 
                                             let right = drop n ls
                                             let lt = left ++ reverse acc ++ right
@@ -508,15 +508,14 @@ repl acc n ioRef = do
                                             liftIO lsCode
                                             repl [] n ioRef
 
-                                        | strEq ":next" v -> do
+                                        | strEq ":next" v || strEq ":n" v -> do
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                            let ns = dropPrefix ":next" s
-                                            let n = read ns :: Int
+                                            let n = read w :: Int
                                             let left = take (n + 1) ls 
                                             let right = drop (n + 1) ls
                                             let lt = left ++ reverse acc ++ right
-                                            liftIO $ pre lt
+                                            -- liftIO $ pre lt
                                             liftIO $ writeFileList cppEditedFile lt
                                             liftIO lsCode
                                             repl [] n ioRef
@@ -524,8 +523,7 @@ repl acc n ioRef = do
                                         | strEq ":df" v -> do
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                            let ns = dropPrefix ":df" s
-                                            let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+                                            let lr = map (\x -> read x :: Int) $ trimList $ splitSPC w
                                             let (n1, n2) = (head lr, last lr)
                                             let left = take n1 ls 
                                             let right = drop (n2 + 1) ls
@@ -538,8 +536,7 @@ repl acc n ioRef = do
                                         | strEq ":keep" v -> do
                                           cppEditedFile <- liftIO getEditedFile
                                           ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                          let ns = dropPrefix ":keep" s
-                                          let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+                                          let lr = map (\x -> read x :: Int) $ trimList $ splitSPC w
                                           let n1 = head lr
                                           let n2 = last lr
                                           let lv = take (n2 - n1 + 1) $ drop n1 ls
@@ -550,8 +547,7 @@ repl acc n ioRef = do
                                         -- Get code from fileBlock
                                         | strEq ":get" v -> do
                                             let p = qr <> [r| -printindex|]
-                                            let ns = dropPrefix ":get" s
-                                            cx <- liftIO $ run $ p ++ " " ++ ns
+                                            cx <- liftIO $ run $ p ++ " " ++ w
 
                                             cppFile <- liftIO getCppFile
                                             cppEditedFile <- liftIO getEditedFile
@@ -565,8 +561,7 @@ repl acc n ioRef = do
 
                                         | strEq ":db" v -> do
                                             let p = qr <> [r| -dropindex|]
-                                            let ns = dropPrefix ":db" s
-                                            cx <- liftIO $ run $ p ++ " " ++ ns
+                                            cx <- liftIO $ run $ p ++ " " ++ w
                                             liftIO $ print cx
                                             liftIO lsCode
 
@@ -585,8 +580,7 @@ repl acc n ioRef = do
                                         | strEq ":mv" v -> do
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                            let ns = dropPrefix ":mv" s
-                                            let lr = map (\x -> read x :: Int) $ trimList $ splitSPC ns
+                                            let lr = map (\x -> read x :: Int) $ trimList $ splitSPC w
                                             let (n1, n2) = (head lr, last lr)
                                             let rest = drop n1 ls
                                             let lt = take (n2 - n1 + 1) rest
@@ -599,8 +593,7 @@ repl acc n ioRef = do
                                         | strEq ":dfb" v -> do
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                            let ns = dropPrefix ":dfb" s
-                                            let inx = read ns :: Int
+                                            let inx = read w :: Int
                                             liftIO $ fileBlock fbFile delimiter $ DropIndex inx
                                             -- liftIO $ writeFileList cppEditedFile lt
                                             liftIO lsCode
@@ -609,13 +602,12 @@ repl acc n ioRef = do
                                         -- Delete and Replace             
                                         | strEq ":dr" v -> do
                                           cppEditedFile <- liftIO getEditedFile
-                                          let ns = dropPrefix ":dr" s
-                                          liftIO $ fw "ns"
-                                          liftIO $ pp ns 
-                                          let nx = read ns :: Int
+                                          liftIO $ fw "w"
+                                          liftIO $ pp w 
+                                          let nx = read w :: Int
                                           liftIO $ fw "nx"
-                                          liftIO $ pp nx
-                                          liftIO $ threadDelay $ 1000 * 1000 * 3 
+                                          -- liftIO $ pp nx
+                                          -- liftIO $ threadDelay $ 1000 * 1000 * 3 
                                           str <- liftIO $ readFileStrict cppEditedFile
                                           let ls = lines str
                                           let left = take nx ls
@@ -628,8 +620,7 @@ repl acc n ioRef = do
                                         | strEq ":dl" v -> do
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \x -> return $ lines x
-                                            let ns = dropPrefix ":dl" s
-                                            let lv = splitSPC ns
+                                            let lv = splitSPC w
                                             let ln = map (\x -> read x :: Int) lv
                                             liftIO $ print ln
                                             let tu = zip [0..] ls
@@ -647,7 +638,7 @@ repl acc n ioRef = do
                                           liftIO lsCode
                                           repl [] n ioRef
 
-                                        | strEq ":app" s -> do
+                                        | strEq ":app" v || strEq ":a" v -> do
                                             cppFile <- liftIO getCppFile
                                             cppEditedFile <- liftIO getEditedFile
                                             ls <- liftIO $ readFileStrict cppEditedFile >>= \s -> return $ trimList $ lines s
@@ -678,8 +669,7 @@ repl acc n ioRef = do
                                                         mapM_ put ls
                                                         repl [] (n + 1) ioRef
                                         | strEq ":hsc" v -> do
-                                                        let cs = dropPrefix ":hsc" s
-                                                        cx <- liftIO $ run $ "hsc " ++ cs
+                                                        cx <- liftIO $ run $ "hsc " ++ w
                                                         mapM_ put cx
                                                         repl [] (n + 1) ioRef
 
@@ -727,9 +717,16 @@ keywords = [
            ,":cr"       
            ]
 
+keyCode::[String]
+keyCode = [
+           "vector<float> v = {1, 2, 3};"
+           ,"vector<vector<float>> vv = {{1, 2, 3}, {4, 5, 6}};"
+          ,"mat m(3, 3);"
+          ]
+
   
 search :: String -> [Completion]
-search s = map simpleCompletion $ filter (s `L.isPrefixOf`) keywords
+search s = map simpleCompletion $ filter (s `L.isPrefixOf`) $ keywords ++ keyCode
   
 main :: IO ()
 main = do

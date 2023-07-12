@@ -1,4 +1,61 @@
 :q
+:ls
+:run
+:a
+printf("jjj");
+:ls
+:q
+:run
+:n 0
+printf("asdf");
+:run
+:next 0
+printf("kk");
+:run
+:ls
+:df 0 2
+:run
+:n 0
+printf("ffffsdf");
+:ls
+:run
+:q
+:run
+:n 0
+printf("nice");
+:run
+:n
+printf("ok");
+:ls
+:run
+:q
+:run
+:df 1 2
+:run
+:dl 2
+:run
+:app
+printf("ok");
+:run
+:ls
+:q
+:q
+:quit
+:q
+:q
+:q
+:q
+:q
+:q
+:q
+:q
+:ls
+vector<vector<float>> vv = {{1, 2, 3}, {4, 5, 6}};
+:q
+:q
+:q
+:ls
+:q
 :run
 :ls
 :q
@@ -41,60 +98,3 @@ mat m1(4, 4);
 :run
 :build
 :run
-:q
-:q
-:build
-:run
-:q
-:run
-ls
-:mod code
-cmake -G Ninja
-pwd
-pw
-:mod sh
-pwd
-:ls
-:run
-:q
-:q
-:ls
-:pb
-:dfb 1
-:pb
-:mv 7 10
-:pb
-:ls
-:ls
-:run
-:run 
-:ls
-:exe
-:exe
-:exe
-:run
-:run
-:next 7
-m1.geneMat(200);
-:hsc geneM
-:run
-:app
-m2.print();
-mat m2 = m1 * m1 * m1;
-mat m1(10, 10);
-:ls
-:run
-:run
-:ls
-:q
-:run
-:ls
-:ls
-:dl 4 6
-:ls
-:get 0
-:pb
-:ls
-:run 
-:ls 
-:ls

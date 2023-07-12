@@ -16,4 +16,8 @@ using namespace std;
 int main() {
 // std::cout<<"cool"<<std::endl;
 printf("kk");
+printf("asdf");
+{
+    printf("jjj");
+}
 }
