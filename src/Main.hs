@@ -68,7 +68,6 @@ mycmd = [
       ":q        => Quit",
       ":mod sh   => Shell mode",
       ":mod code => Cpp mode",
-      ":get n    => Get nth block from fileBlock",
       ":keep m n => Keep mth to nth lines in Code",
       ":lib s    => Simple library",
       ":lib a    => All libraries",
@@ -77,7 +76,12 @@ mycmd = [
       ":dl n     => Delete nth line",
       ":df 2 4   => Delete from 2nd to 4th lines",
       ":dr n     => Delete nth line and Replace with current code",
+      "---",
+      ":pb       => print fileBlock",
+      ":mv 1 2   => move lines 1-2 to fileBlock",
       ":dfb n    => Delete nth block from fileBLock",
+      ":get n    => Get nth block from fileBlock",
+      "---",
       ":ls       => List source file",
       ":run      => Run source file",
       ":rep      => Insert snippet to cpp.cpp",
@@ -101,6 +105,7 @@ headStr = [r|
 #include <iostream>
 #include <vector>
 
+
 using namespace std;
 // using namespace AronPrint;  // pp()
 // using namespace Algorithm;
@@ -117,6 +122,7 @@ libSimple = [r|
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 
               |]
   
@@ -128,6 +134,8 @@ libAronLib = [r|
 #include <iostream>
 #include <vector>
 #include "AronLib.h"
+#include <stdio.h>
+
 
 // KEY: cpp array language, cpp apl
 #include <blitz/array.h>  
@@ -326,6 +334,20 @@ cppSnippet s = do
        mapM_ (\x -> putStrLn $ "\t" ++ x) stdout 
 
 {-|
+ @
+ if first char is '{' or '}' then color the '{' '}' else do nothing
+ @
+ -}
+isCurlyChar:: String -> (Bool, String)
+isCurlyChar s = if len s' == 0 
+              then (False, s) 
+              else let c = head s' 
+                       x = colorStr s
+                   in if c == '{' || c == '}' then (True, x) else (False, x)  
+        where
+          s' = trim s
+
+{-|
    === KEY: Use astyle to format it.
 -}
 showCode :: FilePath -> IO()
@@ -333,11 +355,13 @@ showCode fn = do
               _ <- runCmd $ "astyle " ++ fn
               str <- readFileStrict fn
               let lt = lines str
-              let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] $ colorx lt
-              let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
+              let lr = colorx lt
+              let lu = map isCurlyChar lt
+              -- let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
+              let zls = zipWith(\n (b, s) -> b ? (colorfgStr 83 $ show n ++ " " ++ s) $ show n ++ " " ++ s) [0..] lu 
               -- clear
               mapM_ (\x -> putStrLn $ "\t" ++ x) zls
-  
+    
 showHead :: String -> IO()
 showHead s = do
              let fn = "/tmp/abc123.cpp"
@@ -345,6 +369,7 @@ showHead s = do
              _ <- runCmd $ "astyle " ++ fn
              let lt = lines s
              let ls = map (\(n, s) -> even n ? s $ s) $ zip [0..] $ colorx lt
+             -- let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
              let zls = zipWith(\n s -> (show n) ++ " " ++ s) [0..] $ ls
              clear
              mapM_ (\x -> putStrLn $ "\t" ++ x) zls
@@ -404,6 +429,7 @@ modifyPromptIO ioRef s = do
 data RunMode = ShellX | CodeX deriving (Show, Eq)
   
 colorx ls = map (concat . colorToken) $ map (tokenize) ls
+colorStr s = (concat . colorToken) $ tokenize s
   
 
 fbFile = "/tmp/kk.x"
@@ -436,7 +462,7 @@ repl acc n ioRef = do
                                    liftIO $ modifyPromptIO ioRef ">"
                                    liftIO $ modifyModeIO ioRef CodeX
                                | otherwise -> do
-                                   liftIO $ print "ERROR: Invalid mode"
+                                   liftIO $ print "ERROR: Invalid mode => :mod sh || :mod code"
                          repl [] n ioRef
                        | strEq ":q" v -> outputStrLn "Quit"
                        | strEq ":h" v -> do
@@ -727,7 +753,18 @@ keyCode = [
   
 search :: String -> [Completion]
 search s = map simpleCompletion $ filter (s `L.isPrefixOf`) $ keywords ++ keyCode
-  
+
+{--
+main :: IO ()
+main = do
+       pp "ok"
+       let fp = "/tmp/a.cpp"
+       showCode fp 
+       s <- readFileList fp
+       let ss = map (\x -> isCurlyChar x) s
+       pre ss
+--}
+
 main :: IO ()
 main = do
        ioRef <- newIORef EffectIORef { lib_ = libAronLib, mod_ = CodeX, prompt_ = "> " }

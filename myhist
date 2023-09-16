@@ -1,4 +1,48 @@
 :q
+:q
+:q
+:run
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:q
+:ls
+:ls
+:q
+:ls
+:q
+:ls
+:ls
+:q
+:a
+pp(v);
+vector<float> v = {1, 2, 3}; 
+:ls
+:ls
+:q
+:q
+:q
+:q
+:q
+:q
+:q
+:q
 :ls
 :run
 :a
@@ -54,47 +98,3 @@ vector<vector<float>> vv = {{1, 2, 3}, {4, 5, 6}};
 :q
 :q
 :q
-:ls
-:q
-:run
-:ls
-:q
-:qa
-:run
-:dr 0
-printf("kk");
-:ls
-:dr 0
-printf("kk");
-:ls
-printf("kk"0;
-:ls
-:dr 0
-printf("kk");
-:run
-:next 0
-printf("ok");
-:ls
-:ls
-:dr 1
-pp(v);
-:run
-:ls
-:next 0
-pl(v);
-vector<int> v = {1, 2, 3};
-:ls
-:ls
-:q
-:ls
-:q
-:ls
-:ls
-:q
-:dr 7
-mat m1(4, 4);
-:ls
-:q
-:run
-:build
-:run
